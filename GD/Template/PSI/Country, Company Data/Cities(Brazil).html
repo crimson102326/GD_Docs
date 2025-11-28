@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Major Cities of Brazilian States</title>
+  <style>
+    :root{
+      --bg:#0f172a;          /* slate-900 */
+      --panel:#111827;       /* gray-900 */
+      --card:#0b1220;        /* slightly darker */
+      --muted:#94a3b8;       /* slate-400 */
+      --text:#e5e7eb;        /* gray-200 */
+      --accent:#22d3ee;      /* cyan-400 */
+      --accent-2:#f59e0b;    /* amber-500 */
+      --chip:#1f2a44;        /* chip bg */
+      --ring:#1d4ed8;        /* blue-600 */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(34,211,238,.12), transparent 60%),
+                  radial-gradient(1000px 600px at 110% 10%, rgba(245,158,11,.10), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height: 1.5;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(15,23,42,.8), rgba(15,23,42,.5));
+      border-bottom: 1px solid rgba(148,163,184,.12);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px clamp(16px, 3vw, 32px);
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .logo {
+      width: 42px; height: 42px;
+      display: grid; place-items:center;
+      border-radius: 10px;
+      background:
+        conic-gradient(from 210deg at 70% 40%, rgba(34,211,238,.4), transparent 25%),
+        conic-gradient(from 300deg at 30% 60%, rgba(245,158,11,.35), transparent 30%),
+        linear-gradient(135deg, rgba(2,6,23,.6), rgba(2,6,23,0));
+      border: 1px solid rgba(148,163,184,.15);
+      box-shadow: 0 6px 20px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.02);
+    }
+    .logo-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, white, var(--accent));
+      box-shadow: 0 0 20px rgba(34,211,238,.7);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.25rem, 2.3vw, 1.9rem);
+      letter-spacing: .2px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .tools {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 720px){
+      .tools { grid-template-columns: 1fr auto; align-items: center; }
+    }
+
+    .search {
+      position: relative;
+    }
+    .search input {
+      width: 100%;
+      padding: 14px 44px 14px 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,.18);
+      background: linear-gradient(180deg, rgba(17,24,39,.9), rgba(2,6,23,.85));
+      color: var(--text);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+    }
+    .search input::placeholder { color: rgba(148,163,184,.6); }
+    .search input:focus {
+      border-color: rgba(34,211,238,.5);
+      box-shadow: 0 0 0 4px rgba(34,211,238,.15);
+    }
+    .search svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px; height: 20px;
+      opacity: .7;
+    }
+    .clear-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: 0;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+    }
+    .clear-btn:hover { color: var(--text); background: rgba(148,163,184,.08); }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    .chip {
+      font-size: .9rem;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--chip);
+      color: var(--text);
+      border: 1px solid rgba(148,163,184,.15);
+      cursor: pointer;
+      user-select: none;
+      transition: transform .08s ease, background .2s, border-color .2s, color .2s;
+    }
+    .chip[data-active="true"]{
+      background: linear-gradient(180deg, rgba(34,211,238,.18), rgba(34,211,238,.06));
+      border-color: rgba(34,211,238,.45);
+      color: white;
+      box-shadow: 0 0 0 4px rgba(34,211,238,.12);
+    }
+    .chip:active { transform: translateY(1px); }
+
+    main {
+      padding: 28px clamp(16px, 3vw, 32px);
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 540px){ .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px){ .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1200px){ .grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .card {
+      background: linear-gradient(180deg, rgba(11,18,32,.9), rgba(8,13,25,.92));
+      border: 1px solid rgba(148,163,184,.14);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+      display: flex; flex-direction: column; gap: 12px;
+      min-height: 160px;
+      transition: transform .18s ease, border-color .2s, box-shadow .2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(34,211,238,.35);
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+    }
+
+    .state-head {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+    }
+    .state-name {
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .state-code {
+      font-size: .85rem;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cities {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .city {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(148,163,184,.08);
+      border: 1px solid rgba(148,163,184,.14);
+      color: var(--text);
+      font-size: .92rem;
+      white-space: nowrap;
+    }
+
+    .count {
+      margin-top: auto;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+
+    .footer-note {
+      color: var(--muted);
+      text-align: center;
+      padding: 28px;
+      border-top: 1px dashed rgba(148,163,184,.18);
+    }
+
+    /* Dialog */
+    dialog {
+      padding: 0; border: none; border-radius: 14px;
+      background: linear-gradient(180deg, rgba(17,24,39,.95), rgba(2,6,23,.96));
+      color: var(--text);
+      width: min(720px, 92vw);
+      box-shadow: 0 40px 120px rgba(0,0,0,.6);
+    }
+    dialog::backdrop { background: rgba(2,6,23,.6); backdrop-filter: blur(2px); }
+    .dialog-header {
+      padding: 16px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      border-bottom: 1px solid rgba(148,163,184,.15);
+    }
+    .dialog-body { padding: 18px; }
+    .kbd {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      padding: 2px 6px; border-radius: 6px;
+      background: rgba(148,163,184,.14);
+      border: 1px solid rgba(148,163,184,.24);
+      font-size: .9rem;
+    }
+
+    /* Utility for hiding */
+    .hidden { display: none !important; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* Small helper tooltip on hover */
+    .hint {
+      position: relative;
+    }
+    .hint:hover::after {
+      content: attr(data-hint);
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      bottom: 120%;
+      white-space: nowrap;
+      background: #0b1220;
+      border: 1px solid rgba(148,163,184,.22);
+      color: var(--text);
+      padding: 6px 8px;
+      border-radius: 8px;
+      font-size: .8rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,.35);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="title">
+        <div class="logo"><div class="logo-dot" aria-hidden="true"></div></div>
+        <div>
+          <h1>Major Cities of Brazilian States</h1>
+          <div class="subtitle">Explore principal cities for each state and the Federal District. Filter by region or search by name.</div>
+        </div>
+      </div>
+
+      <div class="tools">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+          <input id="search" type="search" placeholder="Search states or cities..." aria-label="Search states or cities" />
+          <button class="clear-btn hint" id="clearBtn" aria-label="Clear search" data-hint="Clear">
+            ✕
+          </button>
+        </div>
+        <div class="filters" role="group" aria-label="Region filters">
+          <button class="chip" data-region="all" data-active="true">All</button>
+          <button class="chip" data-region="N">North</button>
+          <button class="chip" data-region="NE">Northeast</button>
+          <button class="chip" data-region="CW">Center-West</button>
+          <button class="chip" data-region="SE">Southeast</button>
+          <button class="chip" data-region="S">South</button>
+          <button class="chip hint" id="aboutBtn" data-hint="What counts as “major”?" style="margin-left:auto;">About</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="grid" class="grid" aria-live="polite"></section>
+  </main>
+
+  <div class="footer-note">
+    Data compiled for quick reference. Major cities include the capital and other large or notable municipalities. Not exhaustive.
+  </div>
+
+  <dialog id="aboutDialog" aria-labelledby="aboutTitle">
+    <div class="dialog-header">
+      <strong id="aboutTitle">What counts as “major”?</strong>
+      <button class="chip" id="closeDialog">Close</button>
+    </div>
+    <div class="dialog-body">
+      <p>
+        For each state, this list includes the capital and other prominent cities based on population, economic relevance, or regional importance. The selection is concise for readability and not a complete list of municipalities.
+      </p>
+      <p class="subtitle">
+        Tip: Use the search box to find a state or city quickly. Press <span class="kbd">/</span> to focus search.
+      </p>
+    </div>
+  </dialog>
+
+  <script>
+    // Dataset: Brazilian states with region, capital, and other major cities
+    // Regions: N (North), NE (Northeast), CW (Center-West), SE (Southeast), S (South)
+    const STATES = [
+      // North
+      { code: "AC", state: "Acre", region: "N", capital: "Rio Branco", cities: ["Cruzeiro do Sul", "Sena Madureira"] },
+      { code: "AP", state: "Amapá", region: "N", capital: "Macapá", cities: ["Santana", "Laranjal do Jari"] },
+      { code: "AM", state: "Amazonas", region: "N", capital: "Manaus", cities: ["Parintins", "Itacoatiara", "Coari"] },
+      { code: "PA", state: "Pará", region: "N", capital: "Belém", cities: ["Ananindeua", "Santarém", "Marabá"] },
+      { code: "RO", state: "Rondônia", region: "N", capital: "Porto Velho", cities: ["Ji-Paraná", "Ariquemes", "Cacoal"] },
+      { code: "RR", state: "Roraima", region: "N", capital: "Boa Vista", cities: ["Rorainópolis", "Caracaraí"] },
+      { code: "TO", state: "Tocantins", region: "N", capital: "Palmas", cities: ["Araguaína", "Gurupi", "Porto Nacional"] },
+
+      // Northeast
+      { code: "AL", state: "Alagoas", region: "NE", capital: "Maceió", cities: ["Arapiraca", "Rio Largo", "Palmeira dos Índios"] },
+      { code: "BA", state: "Bahia", region: "NE", capital: "Salvador", cities: ["Feira de Santana", "Vitória da Conquista", "Itabuna", "Ilhéus"] },
+      { code: "CE", state: "Ceará", region: "NE", capital: "Fortaleza", cities: ["Caucaia", "Juazeiro do Norte", "Sobral", "Maracanaú"] },
+      { code: "MA", state: "Maranhão", region: "NE", capital: "São Luís", cities: ["Imperatriz", "Caxias", "Timon"] },
+      { code: "PB", state: "Paraíba", region: "NE", capital: "João Pessoa", cities: ["Campina Grande", "Santa Rita", "Patos"] },
+      { code: "PE", state: "Pernambuco", region: "NE", capital: "Recife", cities: ["Jaboatão dos Guararapes", "Olinda", "Caruaru", "Petrolina"] },
+      { code: "PI", state: "Piauí", region: "NE", capital: "Teresina", cities: ["Parnaíba", "Picos", "Floriano"] },
+      { code: "RN", state: "Rio Grande do Norte", region: "NE", capital: "Natal", cities: ["Mossoró", "Parnamirim", "Caicó"] },
+      { code: "SE", state: "Sergipe", region: "NE", capital: "Aracaju", cities: ["Nossa Senhora do Socorro", "Lagarto", "Itabaiana"] },
+      { code: "BAHIA2", hidden: true }, // placeholder to keep grouping comment clear
+
+      // Center-West
+      { code: "DF", state: "Distrito Federal", region: "CW", capital: "Brasília", cities: ["Taguatinga", "Ceilândia", "Gama", "Planaltina"] },
+      { code: "GO", state: "Goiás", region: "CW", capital: "Goiânia", cities: ["Aparecida de Goiânia", "Anápolis", "Rio Verde", "Luziânia"] },
+      { code: "MT", state: "Mato Grosso", region: "CW", capital: "Cuiabá", cities: ["Várzea Grande", "Rondonópolis", "Sinop"] },
+      { code: "MS", state: "Mato Grosso do Sul", region: "CW", capital: "Campo Grande", cities: ["Dourados", "Três Lagoas", "Corumbá"] },
+
+      // Southeast
+      { code: "ES", state: "Espírito Santo", region: "SE", capital: "Vitória", cities: ["Vila Velha", "Cariacica", "Serra", "Cachoeiro de Itapemirim"] },
+      { code: "MG", state: "Minas Gerais", region: "SE", capital: "Belo Horizonte", cities: ["Contagem", "Uberlândia", "Juiz de Fora", "Betim", "Montes Claros"] },
+      { code: "RJ", state: "Rio de Janeiro", region: "SE", capital: "Rio de Janeiro", cities: ["São Gonçalo", "Duque de Caxias", "Nova Iguaçu", "Niterói", "Campos dos Goytacazes"] },
+      { code: "SP", state: "São Paulo", region: "SE", capital: "São Paulo", cities: ["Guarulhos", "Campinas", "São Bernardo do Campo", "Santo André", "Osasco", "Ribeirão Preto", "São José dos Campos"] },
+
+      // South
+      { code: "PR", state: "Paraná", region: "S", capital: "Curitiba", cities: ["Londrina", "Maringá", "Foz do Iguaçu", "Ponta Grossa"] },
+      { code: "RS", state: "Rio Grande do Sul", region: "S", capital: "Porto Alegre", cities: ["Caxias do Sul", "Canoas", "Pelotas", "Santa Maria"] },
+      { code: "SC", state: "Santa Catarina", region: "S", capital: "Florianópolis", cities: ["Joinville", "Blumenau", "Itajaí", "Chapecó"] },
+
+      // Pará interior and others already included above; ensure 26 states + DF
+      { code: "MAIS", hidden: true }
+    ].filter(x => !x.hidden);
+
+    const REGIONS = {
+      N: "North",
+      NE: "Northeast",
+      CW: "Center-West",
+      SE: "Southeast",
+      S: "South",
+    };
+
+    // Render cards
+    const grid = document.getElementById('grid');
+    function createCard({ code, state, region, capital, cities }) {
+      const el = document.createElement('article');
+      el.className = 'card';
+      el.dataset.region = region;
+      el.dataset.state = state.toLowerCase();
+      el.dataset.code = code.toLowerCase();
+
+      const header = document.createElement('div');
+      header.className = 'state-head';
+
+      const name = document.createElement('div');
+      name.className = 'state-name';
+      name.innerHTML = `${state}`;
+
+      const codeEl = document.createElement('div');
+      codeEl.className = 'state-code';
+      codeEl.textContent = `${code} • ${REGIONS[region]}`;
+
+      header.appendChild(name);
+      header.appendChild(codeEl);
+
+      const citiesWrap = document.createElement('div');
+      citiesWrap.className = 'cities';
+
+      const capChip = document.createElement('span');
+      capChip.className = 'city';
+      capChip.style.borderColor = 'rgba(245,158,11,.55)';
+      capChip.style.background = 'linear-gradient(180deg, rgba(245,158,11,.20), rgba(245,158,11,.08))';
+      capChip.style.boxShadow = '0 0 0 3px rgba(245,158,11,.10)';
+      capChip.textContent = capital + " (capital)";
+      citiesWrap.appendChild(capChip);
+
+      cities.forEach(c => {
+        const chip = document.createElement('span');
+        chip.className = 'city';
+        chip.textContent = c;
+        citiesWrap.appendChild(chip);
+      });
+
+      const count = document.createElement('div');
+      count.className = 'count';
+      count.textContent = `${1 + cities.length} cities listed`;
+
+      el.appendChild(header);
+      el.appendChild(citiesWrap);
+      el.appendChild(count);
+      return el;
+    }
+
+    function render(list){
+      grid.innerHTML = '';
+      const frag = document.createDocumentFragment();
+      list.forEach(item => frag.appendChild(createCard(item)));
+      grid.appendChild(frag);
+    }
+
+    // Filtering and search
+    const chips = Array.from(document.querySelectorAll('.chip[data-region]'));
+    let activeRegion = 'all';
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.dataset.active = 'false');
+        chip.dataset.active = 'true';
+        activeRegion = chip.dataset.region;
+        applyFilters();
+      });
+    });
+
+    const search = document.getElementById('search');
+    const clearBtn = document.getElementById('clearBtn');
+    clearBtn.addEventListener('click', () => {
+      search.value = '';
+      search.dispatchEvent(new Event('input'));
+      search.focus();
+    });
+
+    function applyFilters(){
+      const q = search.value.trim().toLowerCase();
+      let filtered = STATES.filter(s => activeRegion === 'all' || s.region === activeRegion);
+
+      if(q){
+        filtered = filtered.filter(s => {
+          if (s.state.toLowerCase().includes(q) || s.capital.toLowerCase().includes(q) || s.code.toLowerCase().includes(q))
+            return true;
+          return s.cities.some(c => c.toLowerCase().includes(q));
+        });
+      }
+
+      render(filtered);
+    }
+
+    search.addEventListener('input', applyFilters);
+
+    // Keyboard shortcut: focus search with /
+    window.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== search) {
+        e.preventDefault();
+        search.focus();
+        search.select();
+      }
+    });
+
+    // About dialog
+    const aboutDialog = document.getElementById('aboutDialog');
+    const aboutBtn = document.getElementById('aboutBtn');
+    const closeDialog = document.getElementById('closeDialog');
+    aboutBtn.addEventListener('click', () => aboutDialog.showModal());
+    closeDialog.addEventListener('click', () => aboutDialog.close());
+    aboutDialog.addEventListener('click', (e) => {
+      const rect = aboutDialog.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom)
+        aboutDialog.close();
+    });
+
+    // Initial render
+    render(STATES);
+  </script>
+</body>
+</html>

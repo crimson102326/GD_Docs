@@ -1,0 +1,54 @@
+About the job
+About HyperPlay
+
+We are the next-generation Game Store where players discover Web3-enabled games, and developers benefit from a censorship-resistant, developer-friendly distribution platform.
+We address key user experience and infrastructure challenges faced by both players and developers in Web3 gaming.
+Built around MetaMask, HyperPlay offers an interoperable and extensible in-game overlay featuring seamless wallet transactions, quests, achievements, token swaps, marketplaces, and social communities.
+HyperPlay provides industry-leading developer solutions, from wallet APIs and no-code SDKs for Unity and Unreal engines, to quest builders and smart contract factories. Developers can easily integrate via Unity, Unreal, proprietary game engines, or window.ethereum for browser-based games.
+Unlike traditional game stores, HyperPlay aggregates other stores like Epic Games and GOG Games, offering players the largest game library and enhanced discovery.
+
+
+The Role
+
+We are seeking a Game Content Manager responsible for ensuring that game listings within HyperPlay work properly and ensuring compliance with all game store policies.
+
+
+Key Responsibilities:
+
+Test each game update to ensure that the game launches properly, and that the game build is free of major bugs.
+Review game listings to ensure that the game is following game store policies.
+Document any bugs discovered in our application or with games submitted to our store.
+Provide detailed written communications to external parties regarding bugs or other compliance issues.
+
+
+Qualifications:
+
+Experienced in using MetaMask or a similar browser extension-based wallet.
+Experienced in playing web3 or crypto-enabled games.
+Experience in customer-facing communications, including strong written communication and professionalism.
+
+
+Bonus Points:
+
+Experience with QA, software testing, or a similar function.
+
+
+Why join HyperPlay?
+
+At HyperPlay, we cultivate a culture of flexibility, autonomy, and the freedom to make a real impact on the broader Web3 ecosystem. Experience the advantages of a fully remote working environment where your expertise and contributions are rewarded with competitive compensation tailored to your role and project influence.
+We also offer:
+ • Employee Equity & Incentives: Unlock future growth with equity and other potential incentives.
+ • Entrepreneurial Culture: Join a collaborative environment where we innovate together as partners.
+ • Cutting-edge Innovation: Work at the forefront of gaming and blockchain.
+ • Key Strategic Projects: Be part of transformative initiatives that are redefining the gaming landscape.
+ • Remote Flexibility: Enjoy a truly flexible, fully remote work setup that supports your lifestyle.
+ • Talented Team: Collaborate with a team of passionate, driven, and skilled professionals.
+ • Community Impact: Contribute to the growth and success of the Web3 and gaming communities.
+ • Flexible Payment Options: Receive payments in crypto or fiat, tailored to your preference.
+ • Growth Opportunities: Access valuable learning experiences and development paths.
+
+
+HyperPlay Labs, Inc. is an equal opportunities workplace that doesn’t discriminate based on race, ethnicity, gender, ancestry, national origin, religion, sex, sexual orientation, gender identity, age disability, veteran status, genetic information, marital status, or any other legally protected status.
+
+
+

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>São Paulo Crypto Companies Directory</title>
+<style>
+  :root{
+    --bg:#0f1220; --card:#171a2b; --muted:#9aa3b2; --text:#e8ebf1;
+    --accent:#5bd6ff; --accent2:#8b5cf6; --ok:#10b981; --warn:#f59e0b;
+    --bad:#ef4444; --chip:#22253a; --chipText:#c9d1e5; --border:#262b44;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background:linear-gradient(180deg, #0f1220 0%, #0b0e1a 100%); color:var(--text);
+  }
+  header{
+    padding:16px 20px 8px; position:sticky; top:0; background:linear-gradient(180deg, rgba(15,18,32,0.95) 0%, rgba(11,14,26,0.85) 100%);
+    backdrop-filter: blur(8px); z-index:10; border-bottom:1px solid var(--border);
+  }
+  h1{font-size:20px; margin:0 0 6px; letter-spacing:0.2px}
+  .sub{color:var(--muted); font-size:13px; margin-bottom:10px}
+  .controls{
+    display:grid; grid-template-columns:1fr; gap:8px;
+  }
+  @media(min-width:720px){
+    .controls{grid-template-columns:2fr 1fr 1fr 1fr 1fr;}
+  }
+  input, select{
+    width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border);
+    background:var(--card); color:var(--text); outline:none;
+  }
+  main{padding:12px}
+  .tableWrap{
+    overflow:auto; border:1px solid var(--border); border-radius:12px; background:var(--card);
+  }
+  table{
+    width:100%; border-collapse:separate; border-spacing:0; min-width:1100px;
+  }
+  thead th{
+    position:sticky; top:0; background:linear-gradient(180deg, #171a2b 0%, #14172a 100%);
+    z-index:5; text-align:left; font-weight:600; font-size:13px; color:#cfd6ea;
+    padding:12px; border-bottom:1px solid var(--border); cursor:pointer; white-space:nowrap;
+  }
+  tbody td{
+    padding:12px; border-bottom:1px solid var(--border); vertical-align:top; font-size:14px; color:#e8ebf1;
+  }
+  tbody tr:hover{background:#1a1e33}
+  .chip{
+    display:inline-block; padding:2px 8px; border-radius:999px; background:var(--chip); color:var(--chipText);
+    font-size:12px; margin-right:6px; margin-bottom:4px; border:1px solid var(--border);
+  }
+  .tierS{background: linear-gradient(90deg, #153f59, #1d2e5a); color:#cfefff}
+  .tierA{background:#24304f}
+  .tierB{background:#2a3143}
+  .foot{color:var(--muted); font-size:12px; padding:10px 2px}
+  .hint{color:var(--muted); font-size:12px; margin-top:8px}
+  .btn{
+    background:linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0b12; border:none; padding:10px 12px; border-radius:10px; font-weight:700; cursor:pointer;
+  }
+  .actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .nowrap{white-space:nowrap}
+  a{color:#8ad4ff; text-decoration:none}
+  a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+  <h1>São Paulo Crypto & Digital Assets Companies</h1>
+  <div class="sub">Ranking by estimated size/usage in Brazil; SP footprint noted. Click headers to sort. Use filters to narrow.</div>
+  <div class="controls">
+    <input id="q" type="search" placeholder="Search companies, categories, notes..." />
+    <select id="tier">
+      <option value="">All tiers</option>
+      <option value="S">Tier S</option>
+      <option value="A">Tier A</option>
+      <option value="B">Tier B</option>
+    </select>
+    <select id="category">
+      <option value="">All categories</option>
+      <option>Exchange/Broker</option>
+      <option>Bank/Fintech</option>
+      <option>Asset Manager/ETF</option>
+      <option>Custody/Infra/Tokenization</option>
+      <option>OTC/Market Maker</option>
+      <option>Media/Association</option>
+      <option>Web3/NFT/Startup</option>
+      <option>Exchange/Market (B3)</option>
+    </select>
+    <select id="sp">
+      <option value="">SP footprint</option>
+      <option>SP HQ/Hub</option>
+      <option>SP presence</option>
+      <option>National HQ in SP</option>
+    </select>
+    <select id="rj">
+      <option value="">RJ footprint</option>
+      <option>RJ HQ/Hub</option>
+      <option>RJ presence</option>
+      <option>National HQ in RJ</option>
+    </select>
+  </div>
+  <div class="actions">
+    <button class="btn" id="download">Download CSV</button>
+    <span class="hint">Tip: Use the search to find “custody”, “tokenization”, “NFT”, or “OTC”.</span>
+  </div>
+</header>
+
+<main>
+  <div class="tableWrap">
+    <table id="tbl" aria-label="São Paulo Crypto Companies">
+      <thead>
+        <tr>
+          <th data-key="name">Company</th>
+          <th data-key="tier" class="nowrap">Tier</th>
+          <th data-key="category">Category</th>
+          <th data-key="spFootprint">SP Footprint</th>
+          <th data-key="rjFootprint">RJ Footprint</th>
+          <th data-key="notes">Notes</th>
+          <th data-key="website">Website</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="foot">Sources: public company pages, Brazil market coverage, and industry reports. Tiers are heuristic and for orientation only.</div>
+</main>
+
+<script>
+const rows = [
+  // Tier S
+  {name:"Binance", tier:"S", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Global leader; very high BR volumes/users", website:"https://www.binance.com"},
+  {name:"Mercado Bitcoin (2TM)", tier:"S", category:"Exchange/Broker", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Largest Brazilian exchange; strong BRL liquidity", website:"https://www.mercadobitcoin.com.br"},
+  {name:"Nubank (Crypto)", tier:"S", category:"Bank/Fintech", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Massive neobank; crypto to millions of users", website:"https://nubank.com.br"},
+  {name:"XP Inc. (Xtage)", tier:"S", category:"Bank/Fintech", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Major broker; integrated crypto platform Xtage", website:"https://www.xtage.com.br"},
+  {name:"BTG Pactual (Mynt)", tier:"S", category:"Bank/Fintech", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Investment bank with crypto desk and retail app", website:"https://www.mynt.com.br"},
+  {name:"Itaú Unibanco (Custody)", tier:"S", category:"Bank/Fintech", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Launched institutional crypto custody/services", website:"https://www.itau.com.br"},
+  {name:"Hashdex", tier:"S", category:"Asset Manager/ETF", spFootprint:"SP presence", rjFootprint:"RJ HQ/Hub", notes:"Crypto ETFs on B3 (e.g., HASH11); institutional reach", website:"https://hashdex.com"},
+  {name:"PicPay", tier:"S", category:"Bank/Fintech", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Large wallet app offering crypto; broad retail base", website:"https://www.picpay.com"},
+  {name:"Bitso", tier:"S", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Major LatAm exchange; strong BRL on/off-ramp", website:"https://bitso.com"},
+  {name:"OKX", tier:"S", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Global top-tier exchange; expanding BRL rails", website:"https://www.okx.com"},
+
+  // Tier A
+  {name:"Foxbit", tier:"A", category:"Exchange/Broker", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Longstanding Brazilian exchange; retail focus", website:"https://foxbit.com.br"},
+  {name:"NovaDAX", tier:"A", category:"Exchange/Broker", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Local exchange with fiat on-ramps and card tie-ins", website:"https://www.novadax.com.br"},
+  {name:"QR Asset (QR Capital)", tier:"A", category:"Asset Manager/ETF", spFootprint:"SP presence", rjFootprint:"RJ HQ/Hub", notes:"Bitcoin/Ethereum ETFs; regulated products", website:"https://qrasset.com.br"},
+  {name:"Parfin", tier:"A", category:"Custody/Infra/Tokenization", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Institutional crypto infra and custody orchestration", website:"https://parfin.io"},
+  {name:"Liqi Digital Assets", tier:"A", category:"Custody/Infra/Tokenization", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"RWA tokenization platform for issuers/enterprises", website:"https://www.liqi.com.br"},
+  {name:"Transfero (BRZ)", tier:"A", category:"Custody/Infra/Tokenization", spFootprint:"SP presence", rjFootprint:"RJ HQ/Hub", notes:"BRZ stablecoin issuer; fiat/crypto bridge", website:"https://www.transfero.com"},
+  {name:"B3 (Brasil Bolsa Balcão)", tier:"A", category:"Exchange/Market (B3)", spFootprint:"National HQ in SP", rjFootprint:"RJ presence", notes:"National exchange; lists crypto ETFs; exploring rails", website:"https://www.b3.com.br"},
+  {name:"Coinbase", tier:"A", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Global exchange with BRL rails; enterprise ties", website:"https://www.coinbase.com"},
+  {name:"Crypto.com", tier:"A", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Retail app; cards and local promotions", website:"https://crypto.com"},
+  {name:"Bybit", tier:"A", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Derivatives-heavy exchange with growing BRL base", website:"https://www.bybit.com"},
+  {name:"Mercado Pago", tier:"A", category:"Bank/Fintech", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Wallet/payments app; crypto in LatAm", website:"https://www.mercadopago.com.br"},
+  {name:"Banco do Brasil", tier:"A", category:"Bank/Fintech", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Tax payment via crypto partners; pilots", website:"https://www.bb.com.br"},
+  {name:"Banco Inter", tier:"A", category:"Bank/Fintech", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Digital bank with crypto ETFs/integrations", website:"https://www.bancointer.com.br"},
+  {name:"Vórtx QR Tokenizadora", tier:"A", category:"Custody/Infra/Tokenization", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Regulated tokenization infrastructure", website:"https://www.vortxqr.com.br"},
+  {name:"MB Tokens (Mercado Bitcoin)", tier:"A", category:"Custody/Infra/Tokenization", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"RWA/tokenization arm of Mercado Bitcoin", website:"https://www.mbtokens.com.br"},
+
+  // Tier B
+  {name:"BitPreço", tier:"B", category:"Exchange/Broker", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Marketplace aggregator across venues", website:"https://www.bitpreco.com"},
+  {name:"BitcoinTrade (2TM)", tier:"B", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Broker brand within 2TM group", website:"https://www.bitcointrade.com.br"},
+  {name:"Coinext", tier:"B", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Local exchange; retail features", website:"https://coinext.com.br"},
+  {name:"Nox Bitcoin", tier:"B", category:"OTC/Market Maker", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Derivatives and structured products", website:"https://www.noxbitcoin.com.br"},
+  {name:"BLP Crypto", tier:"B", category:"OTC/Market Maker", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Asset manager/market participant", website:"https://www.blpcrypto.com.br"},
+  {name:"G5 Partners (Digital Assets)", tier:"B", category:"OTC/Market Maker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Advisory/OTC for HNWI/institutions", website:"https://www.g5.com.br"},
+  {name:"OriginalMy", tier:"B", category:"Web3/NFT/Startup", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Blockchain notarization and identity", website:"https://originalmy.com"},
+  {name:"MOSS (MCO2)", tier:"B", category:"Web3/NFT/Startup", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Carbon credit token; Brazil-linked assets", website:"https://mco2token.moss.earth"},
+  {name:"Tropix", tier:"B", category:"Web3/NFT/Startup", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Digital art marketplace (NFTs)", website:"https://tropix.io"},
+  {name:"Block4", tier:"B", category:"Web3/NFT/Startup", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Tokenization and engagement NFTs for brands", website:"https://block4.com.br"},
+  {name:"Bitfy", tier:"B", category:"Web3/NFT/Startup", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Wallet enabling payments and merchant links", website:"https://www.bitfy.com.br"},
+  {name:"Zro Bank", tier:"B", category:"Bank/Fintech", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Digital bank with crypto features/USD rails", website:"https://www.zrobank.com.br"},
+  {name:"Wiboo", tier:"B", category:"Web3/NFT/Startup", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Loyalty/rewards tokens for brands", website:"https://www.wiboo.com.br"},
+  {name:"ABCripto", tier:"B", category:"Media/Association", spFootprint:"SP HQ/Hub", rjFootprint:"RJ presence", notes:"Industry association; policy and standards", website:"https://abcripto.org"},
+  {name:"Cointelegraph Brasil", tier:"B", category:"Media/Association", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Local crypto media outlet", website:"https://brasil.cointelegraph.com"},
+  {name:"Portal do Bitcoin", tier:"B", category:"Media/Association", spFootprint:"SP presence", rjFootprint:"RJ HQ/Hub", notes:"Brazilian crypto news outlet; strong RJ editorial/events", website:"https://portaldobitcoin.uol.com.br"},
+
+  // Additions with stronger RJ linkage
+  {name:"Transfero", tier:"A", category:"Custody/Infra/Tokenization", spFootprint:"SP presence", rjFootprint:"RJ HQ/Hub", notes:"Issuer of BRZ; OTC and institutional solutions", website:"https://transfero.com"},
+  {name:"QR Capital / QR Asset", tier:"A", category:"Asset Manager/ETF", spFootprint:"SP presence", rjFootprint:"RJ HQ/Hub", notes:"Crypto ETF manager; Rio roots", website:"https://qrasset.com.br"},
+  {name:"B5 Bank (ex Banco B&T)", tier:"B", category:"Bank/Fintech", spFootprint:"SP presence", rjFootprint:"RJ HQ/Hub", notes:"FX bank with crypto-adjacent rails/liquidity", website:"https://www.b5bank.com.br"},
+  {name:"FlowBTC", tier:"B", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"Veteran Brazilian crypto broker", website:"https://flowbtc.com.br"},
+  {name:"Ripio (Brasil)", tier:"A", category:"Exchange/Broker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"LatAm exchange operating in Brazil", website:"https://ripio.com/br"},
+  {name:"Bitversa (OTC)", tier:"B", category:"OTC/Market Maker", spFootprint:"SP presence", rjFootprint:"RJ presence", notes:"OTC desk for retail and corporate", website:"https://bitversa.com.br"},
+  {name:"Blockchain Rio Festival", tier:"B", category:"Media/Association", spFootprint:"SP presence", rjFootprint:"RJ HQ/Hub", notes:"Flagship Web3 event hosted in Rio", website:"https://www.blockchainrio.com"}
+];
+
+const tbody = document.querySelector("#tbl tbody");
+const q = document.querySelector("#q");
+const tier = document.querySelector("#tier");
+const category = document.querySelector("#category");
+const sp = document.querySelector("#sp");
+const rj = document.querySelector("#rj");
+let sortKey = "tier";
+let sortDir = "asc";
+
+function render(){
+  tbody.innerHTML = "";
+  const query = (q.value || "").toLowerCase();
+  const t = (tier.value || "");
+  const c = (category.value || "");
+  const s = (sp.value || "");
+  const r = (rj.value || "");
+  const filtered = rows.filter(rw=>{
+    const hay = (rw.name + " " + rw.category + " " + (rw.spFootprint||"") + " " + (rw.rjFootprint||"") + " " + rw.notes).toLowerCase();
+    const matchesQ = !query || hay.includes(query);
+    const matchesT = !t || rw.tier === t;
+    const matchesC = !c || rw.category === c;
+    const matchesS = !s || (rw.spFootprint === s);
+    const matchesR = !r || (rw.rjFootprint === r);
+    return matchesQ && matchesT && matchesC && matchesS && matchesR;
+  }).sort((a,b)=>{
+    const valA = a[sortKey], valB = b[sortKey];
+    const dir = sortDir === "asc" ? 1 : -1;
+    if(sortKey === "tier"){
+      const rank = {S:1, A:2, B:3};
+      return (rank[valA]-rank[valB]) * dir || a.name.localeCompare(b.name)*dir;
+    }
+    if(sortKey === "name" || sortKey === "category" || sortKey === "spFootprint" || sortKey === "rjFootprint"){
+      return (valA||"").localeCompare(valB||"") * dir;
+    }
+    return String(valA).localeCompare(String(valB)) * dir;
+  });
+
+  for(const r of filtered){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${r.name}</td>
+      <td><span class="chip ${r.tier==='S'?'tierS':r.tier==='A'?'tierA':'tierB'}">Tier ${r.tier}</span></td>
+      <td>${r.category}</td>
+      <td>${r.spFootprint || ""}</td>
+      <td>${r.rjFootprint || ""}</td>
+      <td>${r.notes}</td>
+      <td><a href="${r.website}" target="_blank" rel="noopener">Visit</a></td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+function setSort(key){
+  if(sortKey === key){ sortDir = sortDir === "asc" ? "desc" : "asc"; }
+  else { sortKey = key; sortDir = "asc"; }
+  render();
+}
+
+document.querySelectorAll("th").forEach(th=>{
+  th.addEventListener("click", ()=> setSort(th.dataset.key));
+});
+
+[q, tier, category, sp, rj].forEach(el=> el.addEventListener("input", render));
+
+document.getElementById("download").addEventListener("click", ()=>{
+  const headers = ["Company","Tier","Category","SP Footprint","RJ Footprint","Notes","Website"];
+  const query = (q.value || "").toLowerCase();
+  const t = (tier.value || "");
+  const c = (category.value || "");
+  const s = (sp.value || "");
+  const r = (rj.value || "");
+  const filtered = rows.filter(rw=>{
+    const hay = (rw.name + " " + rw.category + " " + (rw.spFootprint||"") + " " + (rw.rjFootprint||"") + " " + rw.notes).toLowerCase();
+    const matchesQ = !query || hay.includes(query);
+    const matchesT = !t || rw.tier === t;
+    const matchesC = !c || rw.category === c;
+    const matchesS = !s || (rw.spFootprint === s);
+    const matchesR = !r || (rw.rjFootprint === r);
+    return matchesQ && matchesT && matchesC && matchesS && matchesR;
+  });
+  const csv = [headers.join(",")].concat(filtered.map(rw=>[
+    rw.name, rw.tier, rw.category, rw.spFootprint||"", rw.rjFootprint||"", rw.notes, rw.website
+  ].map(v=> `"${String(v).replace(/"/g,'""')}"`).join(","))).join("\n");
+  const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "br-crypto-companies-sp-rj.csv";
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+});
+
+render();
+</script>
+</body>
+</html>

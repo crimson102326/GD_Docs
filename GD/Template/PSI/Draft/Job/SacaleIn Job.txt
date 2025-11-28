@@ -1,0 +1,55 @@
+Senior Web3 / Blockchain Engineer — ScaleIn (NFT Marketplace)
+
+Location: Remote
+Engagement: Contract → Full‑time conversion possible
+Compensation: Competitive market rates (hourly or fixed); equity negotiable. Please include your expected rate in your application.
+Technical assessment: Short 4–5 hour practical test project for shortlisted candidates.
+
+About ScaleIn
+ScaleIn is an institutional‑grade, user‑centric NFT marketplace platform that enables artists, brands, and enterprises to issue, trade, and manage non‑fungible tokens at scale. We combine secure, upgradeable smart contracts with a microservices architecture, robust KYC/AML controls, and enterprise UX to deliver a production‑ready marketplace for mainstream adoption.
+Our architecture is blockchain‑agnostic (initially Ethereum + Polygon), microservices‑based (Docker / Kubernetes), and built for performance and compliance. We are shipping a Phase I MVP (minting, fixed‑price sales, wallet integration, basic KYC) with roadmap milestones through 2026.
+
+Role overview
+We’re looking for a highly experienced Web3 / Blockchain Engineer to build and maintain the smart contract and backend infrastructure that powers ScaleIn. You will design upgradeable, gas‑efficient contracts, implement trustless marketplace mechanics (escrow, auctions, royalties), and integrate on‑chain logic with our APIs, storage, and front‑end systems.
+This is a hands‑on role that requires strong Solidity expertise, production backend experience (TypeScript/Node.js or Go), and practical knowledge of L2 rollups, bridging, and wallet integrations.
+
+What you’ll ship (Phase I focus)
+- Production‑grade smart contracts for minting (ERC‑721 / ERC‑1155), royalties, marketplace listings, and escrow.
+- Gas optimization and L2 deployment strategy (Polygon + rollups) to minimize user costs.
+- Secure upgradeable contract patterns (proxy / upgradeable frameworks) with automated tests and CI.
+- RESTful / GraphQL APIs that integrate on‑chain events with front‑end and indexing services.
+- Wallet integrations (MetaMask, WalletConnect) and hardware wallet compatibility (Ledger/Trezor).
+- Basic KYC flow integration, audit logging, and admin tooling to support compliance requirements.
+
+Responsibilities
+- Architect, design, and implement smart contracts and backend services for minting, listing, bidding, and settlement.
+- Write comprehensive unit/integration tests and maintain CI pipelines (Hardhat/Foundry/Truffle + test frameworks).
+- Optimize contracts for gas and support Layer‑2 rollups or sidechains for cost‑effective finality.
+- Integrate off‑chain systems: IPFS / S3 media storage, PostgreSQL indexing, Elasticsearch for search, Kafka event buses, and caching (Redis).
+- Collaborate with front‑end engineers to deliver seamless wallet UX and real‑time bid/auction updates (WebSockets).
+- Implement secure key management, support hardware wallets, and follow best practices for secret handling.
+- Participate in security reviews, pen‑tests, and coordinate third‑party smart contract audits.
+- Help define operational runbooks, observability (Prometheus / Grafana / ELK), and scalability strategies (Kubernetes autoscaling).
+
+Required (must‑have) qualifications
+- 2+ years professional blockchain development experience; 3+ years general software engineering experience preferred.
+- Deep expertise in Solidity, smart contract design patterns, ERC‑721 & ERC‑1155 standards, and upgradeable proxies (OpenZeppelin or equivalent).
+- Proven experience deploying and maintaining contracts on Ethereum and Polygon (or equivalent L1/L2 networks).
+- Strong backend experience with TypeScript/Node.js or Go, building REST/GraphQL APIs and integrations.
+- Practical knowledge of Layer‑2 solutions, rollups, bridges, and gas‑optimization strategies.
+- Experience with developer tooling: Hardhat, Foundry, Truffle, Ethers.js, Web3.js.
+- Solid automated testing and CI experience; familiarity with security best practices and audit remediation.
+- Experience integrating wallets (MetaMask, WalletConnect) and hardware wallets (Ledger/Trezor).
+- Comfortable with Docker, Kubernetes, cloud environments (AWS/GCP), PostgreSQL, Redis, and Elasticsearch.
+- Strong product and communication skills — able to translate technical constraints into product tradeoffs.
+
+Nice‑to‑have
+- Experience with fiat on‑ramp providers (Stripe, Wyre) and custody solutions.
+- Familiarity with KYC/AML integrations (e.g., Jumio), GDPR, and MiCA compliance requirements.
+- Experience building auction mechanics (timed, Dutch, private sales) and complex settlement flows.
+- Prior experience with Kafka, Prometheus, Grafana, ELK logging, or running production microservices.
+- Background in security certifications, SOC2 / ISO27001 processes, or leading third‑party audits.
+- Front‑end experience with React, TypeScript and real‑time architectures (WebSockets).
+
+How to apply
+Send you application to here: https://forms.gle/weBi4iY48R8JYWoSA

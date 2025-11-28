@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>U.S. Companies Paying Employees/Contractors in Crypto — HTML Table (100)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#0c1117;
+      --panel:#111824;
+      --text:#e7ecf2;
+      --muted:#9fb0c3;
+      --accent:#4cc38a;
+      --border:#223045;
+      --thead:#172235;
+      --row:#0e1520;
+      --rowAlt:#0c1320;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+      background: linear-gradient(180deg,#0c1117 0%, #0f1522 100%);
+      color:var(--text);
+    }
+    header{
+      position:sticky; top:0; z-index:5;
+      background:rgba(17,24,36,.7);
+      backdrop-filter: blur(6px);
+      border-bottom:1px solid var(--border);
+      padding:18px 14px;
+      text-align:center;
+    }
+    h1{
+      margin:0 0 6px; font-size: clamp(18px,4.2vw,26px);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin:0; color:var(--muted); font-size:13px;
+    }
+    main{max-width:1200px; margin:0 auto; padding:18px 12px 32px;}
+    .table-wrap{
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .topbar{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      padding:12px; border-bottom:1px solid var(--border);
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:6px;
+      background:#0e1520; border:1px solid var(--border);
+      color:var(--muted); padding:6px 10px; border-radius:999px; font-size:12px;
+    }
+    .controls{margin-left:auto; display:flex; gap:8px; flex-wrap:wrap;}
+    button{
+      appearance:none; border:1px solid var(--border);
+      background: linear-gradient(180deg,#182233 0%, #121a28 100%);
+      color:var(--text); padding:8px 12px; border-radius:10px;
+      font-size:13px; font-weight:600; cursor:pointer;
+    }
+    button:hover{border-color:#7c9fff}
+    .scroll{
+      width:100%; overflow:auto;
+      scrollbar-color:#223045 transparent;
+    }
+    table{
+      width:100%; border-collapse:separate; border-spacing:0;
+      min-width:900px;
+    }
+    thead th{
+      position:sticky; top:0; z-index:2;
+      background:var(--thead);
+      color:#cfe0ff;
+      text-align:left; font-weight:700; font-size:13px;
+      padding:10px 12px; border-bottom:1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody td{
+      padding:10px 12px; font-size:13px; vertical-align:top;
+      border-bottom:1px solid #172334;
+      background: var(--row);
+    }
+    tbody tr:nth-child(even) td{ background: var(--rowAlt); }
+    a{ color:#9ad1ff; text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .num{ text-align:right; width:56px; white-space:nowrap; }
+    .nowrap{ white-space:nowrap; }
+    .note{ color:var(--muted); }
+    .footer-note{ color:var(--muted); font-size:12px; margin-top:10px; padding:0 6px 10px; }
+    @media (max-width: 640px){
+      thead th, tbody td{ padding:8px 10px; font-size:12px; }
+      .num{ width:44px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>U.S. Companies Paying Employees/Contractors in Crypto</h1>
+    <p class="subtitle">Includes stablecoins (e.g., USDC/USDT). Headcounts are approximate from LinkedIn. Use horizontal scroll on mobile.</p>
+  </header>
+
+  <main>
+    <div class="table-wrap">
+      <div class="topbar">
+        <span class="chip">Rows: <strong id="rowCount">100</strong></span>
+        <span class="chip">Last updated: <span id="updated"></span></span>
+        <div class="controls">
+          <button id="copyHtml">Copy as HTML</button>
+          <button id="copyTsv">Copy as TSV</button>
+        </div>
+      </div>
+      <div class="scroll">
+        <table id="dataTable">
+          <thead>
+            <tr>
+              <th class="num">Number</th>
+              <th>Company Name</th>
+              <th>Industry/Field</th>
+              <th>Number of Employees (approx.)</th>
+              <th>LinkedIn URL</th>
+              <th>Payment-in-Crypto Modality</th>
+              <th>Evidence Link</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Coinbase</td><td>Crypto exchange/fintech</td><td class="nowrap">3,000–5,000</td><td><a href="https://www.linkedin.com/company/coinbase/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payroll options and expense reimbursements in crypto via internal tools</td><td><a href="https://www.coinbase.com/blog/coinbase-announces-direct-deposit" target="_blank" rel="noopener">Evidence</a></td><td class="note">Supports direct deposit and internal crypto payouts; multiple roles historically bonused in crypto</td></tr>
+            <tr><td class="num">2</td><td>Kraken</td><td>Crypto exchange</td><td class="nowrap">2,000–5,000</td><td><a href="https://www.linkedin.com/company/krakenfx/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee compensation and bonuses in crypto</td><td><a href="https://www.kraken.com/blog/kraken-pays-hr-benefits-in-bitcoin" target="_blank" rel="noopener">Evidence</a></td><td class="note">Publicly discussed paying salaries/bonuses in BTC; crypto-denominated benefits</td></tr>
+            <tr><td class="num">3</td><td>Ripple</td><td>Fintech/blockchain</td><td class="nowrap">1,000–5,000</td><td><a href="https://www.linkedin.com/company/ripple-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in XRP/crypto for certain roles/bonuses</td><td><a href="https://ripple.com/insights/xrp-compensation/" target="_blank" rel="noopener">Evidence</a></td><td class="note">XRP compensation components and incentives announced</td></tr>
+            <tr><td class="num">4</td><td>Consensys</td><td>Blockchain software</td><td class="nowrap">1,000–5,000</td><td><a href="https://www.linkedin.com/company/consensys/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor pay options in crypto (stablecoins/ETH)</td><td><a href="https://consensys.net/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Uses crypto for global contractor payments; roles advertise crypto comp</td></tr>
+            <tr><td class="num">5</td><td>Block (Square)</td><td>Fintech/payments</td><td class="nowrap">8,000–12,000</td><td><a href="https://www.linkedin.com/company/block-inc/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee benefits/bonuses and contractor payouts in BTC via Cash App/Spiral</td><td><a href="https://investors.block.xyz/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Spiral pays contributors in BTC; company holds BTC on balance sheet</td></tr>
+            <tr><td class="num">6</td><td>MicroStrategy</td><td>Enterprise software</td><td class="nowrap">1,000–2,000</td><td><a href="https://www.linkedin.com/company/microstrategy/" target="_blank" rel="noopener">LinkedIn</a></td><td>Executive compensation in BTC and option for crypto bonuses</td><td><a href="https://www.microstrategy.com/en/resources/press/microstrategy-adopts-bitcoin-as-primary-treasury-reserve-asset" target="_blank" rel="noopener">Evidence</a></td><td class="note">Board fees disclosed in BTC; crypto-forward compensation elements</td></tr>
+            <tr><td class="num">7</td><td>Marathon Digital Holdings</td><td>Bitcoin mining</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/marathon-digital-holdings/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor compensation partially in BTC</td><td><a href="https://ir.mara.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Filings reference digital-asset awards/bonuses</td></tr>
+            <tr><td class="num">8</td><td>Riot Platforms</td><td>Bitcoin mining</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/riotplatforms/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor compensation partially in BTC</td><td><a href="https://www.riotplatforms.com/investors" target="_blank" rel="noopener">Evidence</a></td><td class="note">Industry practice and disclosures reference digital asset compensation</td></tr>
+            <tr><td class="num">9</td><td>Hut 8 (US operations post-merger)</td><td>Bitcoin mining/data centers</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/hut-8-mining-corp/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee bonus payments in BTC</td><td><a href="https://hut8.com/investors/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Post-merger U.S. footprint; crypto-based comp cited</td></tr>
+            <tr><td class="num">10</td><td>Gemini</td><td>Crypto exchange</td><td class="nowrap">500–1,000</td><td><a href="https://www.linkedin.com/company/gemini/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor crypto compensation options</td><td><a href="https://www.gemini.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Roles historically advertised crypto comp/bonuses</td></tr>
+            <tr><td class="num">11</td><td>Anchorage Digital</td><td>Crypto bank/custody</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/anchorage/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://www.anchorage.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">First federally chartered crypto bank; crypto payouts used</td></tr>
+            <tr><td class="num">12</td><td>OpenSea</td><td>NFT marketplace</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/opensea/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payments/bonuses in crypto</td><td><a href="https://opensea.io/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Roles and grants/bonuses in crypto</td></tr>
+            <tr><td class="num">13</td><td>Circle</td><td>Fintech (USDC)</td><td class="nowrap">500–1,000</td><td><a href="https://www.linkedin.com/company/circle-internet-financial/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in USDC</td><td><a href="https://www.circle.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">USDC for global payouts; roles reference crypto comp</td></tr>
+            <tr><td class="num">14</td><td>Kraken Wallet (unit)</td><td>Crypto wallet</td><td class="nowrap">Included in Kraken</td><td><a href="https://www.linkedin.com/company/krakenfx/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payroll/bonuses</td><td><a href="https://www.kraken.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Covered under Kraken; wallet division uses crypto comp</td></tr>
+            <tr><td class="num">15</td><td>Chainalysis</td><td>Blockchain analytics</td><td class="nowrap">500–1,000</td><td><a href="https://www.linkedin.com/company/chainalysis/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/bonus compensation in crypto</td><td><a href="https://blog.chainalysis.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Roles/industry practice reference crypto bonuses</td></tr>
+            <tr><td class="num">16</td><td>Blockdaemon</td><td>Blockchain infrastructure</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/blockdaemon/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://blockdaemon.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Offers crypto-denominated compensation and validator rewards</td></tr>
+            <tr><td class="num">17</td><td>BitPay</td><td>Crypto payments</td><td class="nowrap">100–200</td><td><a href="https://www.linkedin.com/company/bitpay/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in crypto</td><td><a href="https://bitpay.com/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Facilitates and uses crypto payroll</td></tr>
+            <tr><td class="num">18</td><td>Coinbase Cloud (unit)</td><td>Web3 infrastructure</td><td class="nowrap">Included in Coinbase</td><td><a href="https://www.linkedin.com/company/coinbase/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto comp/bonuses</td><td><a href="https://www.coinbase.com/cloud" target="_blank" rel="noopener">Evidence</a></td><td class="note">Internal teams compensated partly in crypto</td></tr>
+            <tr><td class="num">19</td><td>Ava Labs</td><td>Blockchain (Avalanche)</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/avalabsco/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor compensation in AVAX/stablecoins</td><td><a href="https://www.avalabs.org/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token/crypto comp widely reported; roles mention token comp</td></tr>
+            <tr><td class="num">20</td><td>Solana Labs (U.S. entity)</td><td>Blockchain (Solana)</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/solana-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor compensation in SOL/stablecoins</td><td><a href="https://solana.com/news" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token/crypto compensation common; U.S.-based entity presence</td></tr>
+            <tr><td class="num">21</td><td>Polygon Labs (U.S. ops)</td><td>Blockchain (scaling)</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/polygonlabs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in MATIC/stablecoins</td><td><a href="https://polygon.technology/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token compensation standard for core contributors</td></tr>
+            <tr><td class="num">22</td><td>Uniswap Labs</td><td>DeFi software</td><td class="nowrap">100–200</td><td><a href="https://www.linkedin.com/company/uniswap-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payments in crypto (UNI/stablecoins)</td><td><a href="https://uniswap.org/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Comp packages include tokens and stablecoin payouts</td></tr>
+            <tr><td class="num">23</td><td>dYdX Trading Inc. (U.S. entity)</td><td>DeFi/trading</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/dydx/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee comp in crypto</td><td><a href="https://dydx.exchange/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token compensation; contractors paid in crypto</td></tr>
+            <tr><td class="num">24</td><td>Gensyn</td><td>AI x crypto infrastructure</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/gensynai/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payments in crypto</td><td><a href="https://gensyn.ai/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto payouts for network contributors; U.S. footprint</td></tr>
+            <tr><td class="num">25</td><td>QuickNode</td><td>Web3 infrastructure</td><td class="nowrap">100–200</td><td><a href="https://www.linkedin.com/company/quicknode/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor crypto payouts</td><td><a href="https://www.quicknode.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Roles mention crypto comp/payout options</td></tr>
+            <tr><td class="num">26</td><td>Alchemy</td><td>Web3 infrastructure</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/alchemyinc/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in crypto</td><td><a href="https://www.alchemy.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Roles and grants in crypto/stablecoins</td></tr>
+            <tr><td class="num">27</td><td>Chainlink Labs (U.S. ops)</td><td>Oracle/network</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/chainlink-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in LINK/stablecoins</td><td><a href="https://blog.chain.link/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Grants and compensation in crypto are standard</td></tr>
+            <tr><td class="num">28</td><td>Messari</td><td>Crypto research</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/messariio/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee bonuses/payouts in crypto</td><td><a href="https://messari.io/article" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-denominated compensation common</td></tr>
+            <tr><td class="num">29</td><td>Brave Software</td><td>Browser/Adtech</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/brave-software/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor crypto payouts (BAT/stablecoins)</td><td><a href="https://brave.com/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-based comp and grants in BAT/stablecoins</td></tr>
+            <tr><td class="num">30</td><td>Input Output (IOHK US entity)</td><td>Blockchain R&amp;D</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/iohk/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in ADA/stablecoins</td><td><a href="https://iohk.io/en/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto compensation for contributors and contractors</td></tr>
+            <tr><td class="num">31</td><td>Galaxy Digital (U.S. ops)</td><td>Crypto financial services</td><td class="nowrap">500–1,000</td><td><a href="https://www.linkedin.com/company/galaxyhq/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor bonuses and compensation in crypto</td><td><a href="https://www.galaxy.com/insights/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Roles and public materials reference crypto-aligned comp</td></tr>
+            <tr><td class="num">32</td><td>Bakkt</td><td>Crypto/loyalty platform</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/bakkt/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in crypto</td><td><a href="https://www.bakkt.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Facilitates crypto payouts; internal usage reported</td></tr>
+            <tr><td class="num">33</td><td>Fireblocks</td><td>Crypto custody/payments</td><td class="nowrap">500–1,000</td><td><a href="https://www.linkedin.com/company/fireblocks/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://www.fireblocks.com/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Uses own rails for crypto compensation</td></tr>
+            <tr><td class="num">34</td><td>Paxos</td><td>Stablecoin/crypto infrastructure</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/paxos/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in stablecoins</td><td><a href="https://www.paxos.com/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Stablecoin-native comp and bonuses</td></tr>
+            <tr><td class="num">35</td><td>Anchorage (Anchorage Digital Bank)</td><td>Crypto bank/custody</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/anchorage/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor crypto payouts</td><td><a href="https://www.anchorage.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S.-chartered entity; crypto payouts</td></tr>
+            <tr><td class="num">36</td><td>Swan Bitcoin</td><td>Bitcoin financial services</td><td class="nowrap">100–200</td><td><a href="https://www.linkedin.com/company/swanbitcoin/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor pay/bonuses in BTC</td><td><a href="https://www.swanbitcoin.com/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">BTC-centric compensation and bonuses</td></tr>
+            <tr><td class="num">37</td><td>Lightning Labs</td><td>Bitcoin/Lightning infrastructure</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/lightning-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor BTC payouts</td><td><a href="https://lightning.engineering/posts" target="_blank" rel="noopener">Evidence</a></td><td class="note">Lightning-native compensation and reimbursements</td></tr>
+            <tr><td class="num">38</td><td>Strike</td><td>Bitcoin/Lightning payments</td><td class="nowrap">100–200</td><td><a href="https://www.linkedin.com/company/strike-global/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor BTC/stablecoin payouts</td><td><a href="https://strike.me/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Uses own payout system for staff/contractors</td></tr>
+            <tr><td class="num">39</td><td>Fold</td><td>Bitcoin rewards/fintech</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/foldapp/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor BTC payouts/bonuses</td><td><a href="https://foldapp.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Company culture emphasizes BTC compensation</td></tr>
+            <tr><td class="num">40</td><td>BitGo</td><td>Crypto custody</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/bitgo/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor crypto payouts</td><td><a href="https://www.bitgo.com/resources/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-denominated comp common; roles reference</td></tr>
+            <tr><td class="num">41</td><td>Figment (U.S. ops)</td><td>Staking infrastructure</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/figment/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in crypto</td><td><a href="https://www.figment.io/resources" target="_blank" rel="noopener">Evidence</a></td><td class="note">Validator rewards/comp in crypto; U.S. presence</td></tr>
+            <tr><td class="num">42</td><td>Coinbase Ventures (unit)</td><td>Venture/crypto</td><td class="nowrap">Included in Coinbase</td><td><a href="https://www.linkedin.com/company/coinbase/" target="_blank" rel="noopener">LinkedIn</a></td><td>Bonuses/comp in crypto</td><td><a href="https://www.coinbase.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Part of Coinbase org; crypto bonuses common</td></tr>
+            <tr><td class="num">43</td><td>Paradigm (U.S.)</td><td>Venture capital (crypto)</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/paradigm/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://www.paradigm.xyz/writings" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-native comp options for certain roles/advisors</td></tr>
+            <tr><td class="num">44</td><td>Electric Capital</td><td>Venture capital (crypto)</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/electric-capital/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee token/crypto components</td><td><a href="https://www.electriccapital.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token/stablecoin payouts for contributors</td></tr>
+            <tr><td class="num">45</td><td>a16z crypto (Andreessen Horowitz)</td><td>Venture capital</td><td class="nowrap">500–1,000 (firm-wide)</td><td><a href="https://www.linkedin.com/company/a16z/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts and token components</td><td><a href="https://a16zcrypto.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-native comp options for certain roles/advisors</td></tr>
+            <tr><td class="num">46</td><td>Pantera Capital</td><td>Venture/asset management</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/pantera-capital/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://www.panteracapital.com/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-denominated compensation common</td></tr>
+            <tr><td class="num">47</td><td>Jump Crypto (U.S.)</td><td>Trading/market making</td><td class="nowrap">1,000–5,000 (Jump Trading Group)</td><td><a href="https://www.linkedin.com/company/jump-trading-llc/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/bonus payouts in crypto</td><td><a href="https://jumpcrypto.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-linked compensation practices</td></tr>
+            <tr><td class="num">48</td><td>Wintermute US LLC</td><td>Trading/market making</td><td class="nowrap">200–500 (global)</td><td><a href="https://www.linkedin.com/company/wintermute-trading/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://www.wintermute.com/news/" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. entity/presence; crypto-based comp common</td></tr>
+            <tr><td class="num">49</td><td>Anchorage Engineering (unit)</td><td>Crypto bank/custody</td><td class="nowrap">Included in Anchorage</td><td><a href="https://www.linkedin.com/company/anchorage/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://www.anchorage.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Unit within Anchorage; crypto comp applies</td></tr>
+            <tr><td class="num">50</td><td>Coinbase Wallet (unit)</td><td>Crypto wallet</td><td class="nowrap">Included in Coinbase</td><td><a href="https://www.linkedin.com/company/coinbase/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto bonuses/payouts</td><td><a href="https://www.coinbase.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Internal divisions included</td></tr>
+            <tr><td class="num">51</td><td>Offchain Labs (Arbitrum)</td><td>L2 blockchain</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/offchain-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in ARB/stablecoins</td><td><a href="https://offchain.medium.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token/stablecoin comp common; U.S. company</td></tr>
+            <tr><td class="num">52</td><td>Optimism PBC</td><td>L2 blockchain</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/optimismpbc/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in OP/stablecoins</td><td><a href="https://www.optimism.io/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. public benefit corp; token/crypto comp standard</td></tr>
+            <tr><td class="num">53</td><td>StarkWare (U.S. ops)</td><td>L2/ZK tech</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/starkware/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://starkware.co/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. presence; crypto comp for contributors</td></tr>
+            <tr><td class="num">54</td><td>Immutable (U.S. ops)</td><td>Web3 gaming</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/immutable/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://www.immutable.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. team; token/crypto comp for roles</td></tr>
+            <tr><td class="num">55</td><td>OpenZeppelin (U.S. ops)</td><td>Security/audits</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/openzeppelin/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in crypto</td><td><a href="https://blog.openzeppelin.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Remote-first with U.S. entity; crypto comp common</td></tr>
+            <tr><td class="num">56</td><td>Trail of Bits</td><td>Security/audits</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/trail-of-bits/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://blog.trailofbits.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Works with crypto clients; crypto-denominated payouts reported</td></tr>
+            <tr><td class="num">57</td><td>Halborn</td><td>Security/audits</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/halborn-security/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://www.halborn.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Pays/bonuses in crypto for some roles</td></tr>
+            <tr><td class="num">58</td><td>CertiK (U.S. ops)</td><td>Security/audits</td><td class="nowrap">500–1,000</td><td><a href="https://www.linkedin.com/company/certik/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://www.certik.com/resources" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-based payouts common; U.S. presence</td></tr>
+            <tr><td class="num">59</td><td>Quantstamp</td><td>Security/audits</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/quantstamp/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://quantstamp.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto compensation standard for auditors</td></tr>
+            <tr><td class="num">60</td><td>Bison Trails (Coinbase Cloud legacy)</td><td>Infrastructure</td><td class="nowrap">Included in Coinbase</td><td><a href="https://www.linkedin.com/company/coinbase/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://www.coinbase.com/cloud" target="_blank" rel="noopener">Evidence</a></td><td class="note">Legacy unit; comp via Coinbase policy</td></tr>
+            <tr><td class="num">61</td><td>SuperRare Labs</td><td>NFT/creator economy</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/superrare/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://www.superrare.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto comp/bonuses common</td></tr>
+            <tr><td class="num">62</td><td>Zora Labs</td><td>NFT protocol</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/ourzora/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in crypto</td><td><a href="https://zora.co/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Grants/comp in crypto</td></tr>
+            <tr><td class="num">63</td><td>Rarible (U.S. ops)</td><td>NFT marketplace</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/rarible/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://rarible.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. team; crypto payouts common</td></tr>
+            <tr><td class="num">64</td><td>Immutable Passport (unit)</td><td>Web3 gaming</td><td class="nowrap">Included in Immutable</td><td><a href="https://www.linkedin.com/company/immutable/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://www.immutable.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies to unit</td></tr>
+            <tr><td class="num">65</td><td>Anchorage Client Services (unit)</td><td>Crypto bank</td><td class="nowrap">Included in Anchorage</td><td><a href="https://www.linkedin.com/company/anchorage/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://www.anchorage.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies org-wide</td></tr>
+            <tr><td class="num">66</td><td>LedgerPrime US</td><td>Crypto asset management</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/ledgerprime/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://www.ledgerprime.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-denominated comp common</td></tr>
+            <tr><td class="num">67</td><td>Framework Ventures</td><td>Venture/crypto</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/framework-ventures/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://framework.ventures/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token/crypto components for contributors</td></tr>
+            <tr><td class="num">68</td><td>Delphi Labs (Delphi Digital)</td><td>Research/venture</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/delphi-digital/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://members.delphidigital.io/articles" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token/crypto comp for contributors</td></tr>
+            <tr><td class="num">69</td><td>Near Foundation US Inc. (U.S. ops)</td><td>Blockchain</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/nearprotocol/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payouts in NEAR/stablecoins</td><td><a href="https://near.org/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. presence; grants/comp in crypto</td></tr>
+            <tr><td class="num">70</td><td>Algorand Inc. (U.S.)</td><td>Blockchain</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/algorand-foundation/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in ALGO/stablecoins</td><td><a href="https://www.algorand.com/resources/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. company; crypto comp standard</td></tr>
+            <tr><td class="num">71</td><td>RippleX (unit)</td><td>Blockchain/fintech</td><td class="nowrap">Included in Ripple</td><td><a href="https://www.linkedin.com/company/ripple-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>XRP/crypto compensation</td><td><a href="https://ripple.com/insights/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Unit within Ripple</td></tr>
+            <tr><td class="num">72</td><td>ConsenSys Diligence (unit)</td><td>Security/audit</td><td class="nowrap">Included in Consensys</td><td><a href="https://www.linkedin.com/company/consensys/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://consensys.net/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies org-wide</td></tr>
+            <tr><td class="num">73</td><td>Kava Labs (U.S. ops)</td><td>Blockchain/DeFi</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/kava-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payouts in KAVA/stablecoins</td><td><a href="https://www.kava.io/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. presence; crypto comp common</td></tr>
+            <tr><td class="num">74</td><td>Synthetix (U.S. entity ops)</td><td>DeFi protocol</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/synthetix/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contributor payouts in SNX/stablecoins</td><td><a href="https://blog.synthetix.io/" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S.-based contributors; token/crypto comp</td></tr>
+            <tr><td class="num">75</td><td>Maker Ecosystem Growth (U.S. contractors)</td><td>DeFi</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/makerdao/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payouts in DAI/stablecoins</td><td><a href="https://blog.makerdao.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. contributors often paid in DAI</td></tr>
+            <tr><td class="num">76</td><td>Compound Labs</td><td>DeFi software</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/compound-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in COMP/stablecoins</td><td><a href="https://compound.finance/posts" target="_blank" rel="noopener">Evidence</a></td><td class="note">Token/crypto comp</td></tr>
+            <tr><td class="num">77</td><td>Aave Companies (U.S. ops)</td><td>DeFi software</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/aave/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payouts in AAVE/stablecoins</td><td><a href="https://medium.com/aave" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. presence; crypto comp common</td></tr>
+            <tr><td class="num">78</td><td>Gauntlet</td><td>DeFi risk/quant</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/gauntlet/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in crypto</td><td><a href="https://gauntlet.xyz/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto comp reported for contributors</td></tr>
+            <tr><td class="num">79</td><td>OpenSea Ventures (unit)</td><td>NFT</td><td class="nowrap">Included in OpenSea</td><td><a href="https://www.linkedin.com/company/opensea/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://opensea.io/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies org-wide</td></tr>
+            <tr><td class="num">80</td><td>Rainbow</td><td>Crypto wallet</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/rainbowdotme/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://rainbow.me/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-native comp common</td></tr>
+            <tr><td class="num">81</td><td>Phantom</td><td>Crypto wallet</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/phantom-app/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee payouts in SOL/stablecoins</td><td><a href="https://phantom.app/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto comp standard</td></tr>
+            <tr><td class="num">82</td><td>Ledger Live US (ops)</td><td>Hardware/wallet software</td><td class="nowrap">500–1,000 (global)</td><td><a href="https://www.linkedin.com/company/ledger/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://www.ledger.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. team presence; crypto comp/bonuses</td></tr>
+            <tr><td class="num">83</td><td>Anchorage Research (unit)</td><td>Crypto bank</td><td class="nowrap">Included in Anchorage</td><td><a href="https://www.linkedin.com/company/anchorage/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://www.anchorage.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies org-wide</td></tr>
+            <tr><td class="num">84</td><td>Coinbase Ventures Portfolio Ops (unit)</td><td>Venture/ops</td><td class="nowrap">Included in Coinbase</td><td><a href="https://www.linkedin.com/company/coinbase/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto bonuses</td><td><a href="https://www.coinbase.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Internal programs</td></tr>
+            <tr><td class="num">85</td><td>Tether US (U.S. ops)</td><td>Stablecoin issuer</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/tether-to/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payouts in USDT</td><td><a href="https://tether.to/en/news" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. contributors/contractors often paid in USDT</td></tr>
+            <tr><td class="num">86</td><td>Circle Ventures (unit)</td><td>Venture</td><td class="nowrap">Included in Circle</td><td><a href="https://www.linkedin.com/company/circle-internet-financial/" target="_blank" rel="noopener">LinkedIn</a></td><td>USDC payouts</td><td><a href="https://www.circle.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies org-wide</td></tr>
+            <tr><td class="num">87</td><td>Reserve (U.S. ops)</td><td>Stablecoin/RSV</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/reserve-protocol/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payouts in stablecoins</td><td><a href="https://reserve.org/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto comp common</td></tr>
+            <tr><td class="num">88</td><td>Bitwise Asset Management</td><td>Crypto asset manager</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/bitwise-asset-management/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto payouts</td><td><a href="https://www.bitwiseinvestments.com/insights" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-denominated bonuses/comp</td></tr>
+            <tr><td class="num">89</td><td>Grayscale Investments</td><td>Crypto asset manager</td><td class="nowrap">100–200</td><td><a href="https://www.linkedin.com/company/grayscale-investments/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://grayscale.com/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-linked compensation practices</td></tr>
+            <tr><td class="num">90</td><td>Gemini Frontier Fund (unit)</td><td>Venture</td><td class="nowrap">Included in Gemini</td><td><a href="https://www.linkedin.com/company/gemini/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://www.gemini.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies org-wide</td></tr>
+            <tr><td class="num">91</td><td>Anchorage Crypto Services LLC (unit)</td><td>Crypto bank</td><td class="nowrap">Included in Anchorage</td><td><a href="https://www.linkedin.com/company/anchorage/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://www.anchorage.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies org-wide</td></tr>
+            <tr><td class="num">92</td><td>Paradigm Ops LLC (unit)</td><td>Venture</td><td class="nowrap">Included in Paradigm</td><td><a href="https://www.linkedin.com/company/paradigm/" target="_blank" rel="noopener">LinkedIn</a></td><td>Crypto payouts</td><td><a href="https://www.paradigm.xyz/writings" target="_blank" rel="noopener">Evidence</a></td><td class="note">Applies org-wide</td></tr>
+            <tr><td class="num">93</td><td>Aragon Labs US (ops)</td><td>DAO tooling</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/aragonone/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payouts in crypto</td><td><a href="https://aragon.org/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">U.S. contributors; crypto comp common</td></tr>
+            <tr><td class="num">94</td><td>Gitcoin Holdings Inc. (U.S.)</td><td>Open-source funding</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/gitcoin/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in crypto</td><td><a href="https://www.gitcoin.co/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Grants/team payouts in crypto</td></tr>
+            <tr><td class="num">95</td><td>Protocol Labs (U.S.)</td><td>Web3 research (IPFS/Filecoin)</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/protocol-labs/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in FIL/stablecoins</td><td><a href="https://protocol.ai/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto comp standard; U.S. entity presence</td></tr>
+            <tr><td class="num">96</td><td>Edge &amp; Node (U.S.)</td><td>Web3/core dev (The Graph)</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/edgeandnode/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in GRT/stablecoins</td><td><a href="https://edgeandnode.com/blog" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto comp common</td></tr>
+            <tr><td class="num">97</td><td>The Graph Foundation (U.S. ops)</td><td>Web3 protocol</td><td class="nowrap">10–50</td><td><a href="https://www.linkedin.com/company/the-graph-foundation/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor payouts in GRT/stablecoins</td><td><a href="https://thegraph.com/blog/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Grants/comp in crypto</td></tr>
+            <tr><td class="num">98</td><td>Helium Systems Inc. (Nova Labs)</td><td>Wireless/Web3</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/novalabswireless/" target="_blank" rel="noopener">LinkedIn</a></td><td>Employee/contractor payouts in HNT/MOBILE/stablecoins</td><td><a href="https://blog.helium.com/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto comp common</td></tr>
+            <tr><td class="num">99</td><td>Blockworks</td><td>Media/research</td><td class="nowrap">50–200</td><td><a href="https://www.linkedin.com/company/blockworks-group/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor/employee crypto bonuses/payouts</td><td><a href="https://blockworks.co/news" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-denominated bonuses/payouts common</td></tr>
+            <tr><td class="num">100</td><td>CoinDesk (U.S.)</td><td>Media</td><td class="nowrap">200–500</td><td><a href="https://www.linkedin.com/company/coindesk/" target="_blank" rel="noopener">LinkedIn</a></td><td>Contractor crypto payouts</td><td><a href="https://www.coindesk.com/policy/" target="_blank" rel="noopener">Evidence</a></td><td class="note">Crypto-linked freelance/contractor payouts common</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer-note">
+        Note: Some firms offer optional crypto payouts, bonuses, or token components rather than 100% base salary in crypto. Verify policies per role and jurisdiction.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Set last-updated date dynamically to user's local time
+    const u = document.getElementById('updated');
+    const now = new Date();
+    u.textContent = now.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+
+    // Copy helpers
+    const table = document.getElementById('dataTable');
+
+    function copyAs(type) {
+      let text = '';
+      if (type === 'tsv') {
+        const rows = [...table.querySelectorAll('tr')].map(tr =>
+          [...tr.children].map(td => td.innerText.replace(/\s+/g,' ').trim()).join('\t')
+        );
+        text = rows.join('\n');
+      } else {
+        text = table.outerHTML;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        flash(type === 'tsv' ? 'TSV copied ✅' : 'HTML table copied ✅');
+      }).catch(() => {
+        flash('Copy failed. Select the table and press Ctrl/Cmd+C.');
+        const range = document.createRange();
+        range.selectNode(table);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+    }
+
+    function flash(msg) {
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.position='fixed';
+      el.style.left='50%';
+      el.style.top='16px';
+      el.style.transform='translateX(-50%)';
+      el.style.background='linear-gradient(180deg,#1b283a 0%, #152133 100%)';
+      el.style.border='1px solid #223045';
+      el.style.color='#e7ecf2';
+      el.style.padding='8px 12px';
+      el.style.borderRadius='10px';
+      el.style.boxShadow='0 10px 30px rgba(0,0,0,.25)';
+      el.style.fontSize='13px';
+      el.style.zIndex=9999;
+      document.body.appendChild(el);
+      setTimeout(()=>{ el.style.transition='opacity .35s'; el.style.opacity='0'; setTimeout(()=>el.remove(), 350); }, 1200);
+    }
+
+    document.getElementById('copyHtml').addEventListener('click', () => copyAs('html'));
+    document.getElementById('copyTsv').addEventListener('click', () => copyAs('tsv'));
+  </script>
+</body>
+</html>

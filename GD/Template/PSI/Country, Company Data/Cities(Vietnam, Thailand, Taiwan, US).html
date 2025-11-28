@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Major Cities by Administrative Division: Taiwan, Thailand, Vietnam, United States</title>
+  <style>
+    :root{
+      --bg: #0b1220;
+      --panel: #121a2b;
+      --panel-2: #0f1626;
+      --card: #141e31;
+      --text: #e8eefc;
+      --muted: #a8b3cf;
+      --accent: #6ea8fe;
+      --accent-2: #7ef0d9;
+      --chip: #1b2a45;
+      --border: #22314e;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.03);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(110,168,254,.15), transparent 60%),
+                  radial-gradient(1000px 500px at -10% 0%, rgba(126,240,217,.12), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .wrap{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    header{
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    h1{
+      margin: 0;
+      font-size: clamp(22px, 3.8vw, 36px);
+      letter-spacing: .2px;
+    }
+    .sub{
+      color: var(--muted);
+      font-size: clamp(13px, 2.6vw, 16px);
+      line-height: 1.45;
+    }
+    .controls{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:6px;
+    }
+    .search{
+      flex:1 1 280px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+    }
+    .search input{
+      flex:1;
+      background: transparent;
+      border:0;
+      outline:none;
+      color: var(--text);
+      font-size: 15px;
+    }
+    .filters{
+      display:flex;
+      gap:8px;
+      flex-wrap: wrap;
+    }
+    .chip{
+      background: var(--chip);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: .2s ease;
+      user-select:none;
+    }
+    .chip[aria-pressed="true"]{
+      background: linear-gradient(180deg, rgba(126,240,217,.18), rgba(126,240,217,.08));
+      border-color: #2bcebb80;
+      box-shadow: inset 0 0 0 1px #2bcebb55, 0 2px 10px rgba(0,0,0,.25);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 720px){
+      .grid{ grid-template-columns: repeat(2, 1fr) }
+    }
+    @media (min-width: 1060px){
+      .grid{ grid-template-columns: repeat(3, 1fr) }
+    }
+    .card{
+      background: linear-gradient(180deg, var(--card), #0f1829);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px;
+      display:flex;
+      flex-direction: column;
+      min-height: 160px;
+    }
+    .card h3{
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+    .meta{
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .list{
+      display:flex;
+      flex-wrap: wrap;
+      gap:8px;
+    }
+    .pill{
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .sticky-note{
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .legend{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .legend .dot{
+      width:10px;height:10px;border-radius:50%;
+      display:inline-block;margin-right:6px;vertical-align:middle;
+    }
+    .dot-province{ background:#7ef0d9 }
+    .dot-state{ background:#6ea8fe }
+    footer{
+      margin: 28px 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+    }
+    .hidden{ display:none !important }
+    .country-title{
+      font-size: clamp(18px, 3vw, 24px);
+      margin: 18px 2px 8px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .country-wrap{
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Major Cities by State/Province</h1>
+      <div class="sub">
+        A quick reference of major cities for administrative divisions in Taiwan, Thailand, Vietnam, and the United States.
+      </div>
+      <div class="controls">
+        <div class="search" role="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="#9fb0d4" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <input id="q" type="search" placeholder="Search divisions or cities..." autocomplete="off" />
+        </div>
+        <div class="filters" role="group" aria-label="Country filters">
+          <button class="chip" data-country="Taiwan" aria-pressed="true">Taiwan</button>
+          <button class="chip" data-country="Thailand" aria-pressed="true">Thailand</button>
+          <button class="chip" data-country="Vietnam" aria-pressed="true">Vietnam</button>
+          <button class="chip" data-country="United States" aria-pressed="true">United States</button>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span class="dot dot-province"></span>Province/County</span>
+        <span><span class="dot dot-state"></span>State</span>
+      </div>
+    </header>
+
+    <main id="content"></main>
+
+    <footer>
+      Sources: national statistics portals and widely accepted references. “Major cities” are the largest and/or most prominent cities per division; not exhaustive.
+    </footer>
+  </div>
+
+  <script>
+    // Data note: For compactness, this includes principal divisions with several notable cities each.
+    // Taiwan divisions (municipalities and counties)
+    const taiwan = [
+      { division: "Taipei City (Municipality)", type:"province", cities: ["Taipei"] },
+      { division: "New Taipei City (Municipality)", type:"province", cities: ["Banqiao","Xinzhuang","Sanchong","Tamsui"] },
+      { division: "Taoyuan City (Municipality)", type:"province", cities: ["Taoyuan","Zhongli","Pingzhen"] },
+      { division: "Hsinchu City (Municipality)", type:"province", cities: ["Hsinchu"] },
+      { division: "Hsinchu County", type:"province", cities: ["Zhubei","Hukou"] },
+      { division: "Miaoli County", type:"province", cities: ["Miaoli","Toufen","Zhunan"] },
+      { division: "Taichung City (Municipality)", type:"province", cities: ["Taichung","Fengyuan","Dali"] },
+      { division: "Changhua County", type:"province", cities: ["Changhua","Lukang","Yuanlin"] },
+      { division: "Nantou County", type:"province", cities: ["Nantou","Caotun","Puli"] },
+      { division: "Yunlin County", type:"province", cities: ["Douliu","Huwei","Touliu"] },
+      { division: "Chiayi City (Municipality-level)", type:"province", cities: ["Chiayi"] },
+      { division: "Chiayi County", type:"province", cities: ["Taibao","Minxiong"] },
+      { division: "Tainan City (Municipality)", type:"province", cities: ["Tainan","Yongkang","Xinying"] },
+      { division: "Kaohsiung City (Municipality)", type:"province", cities: ["Kaohsiung","Fengshan","Zuoying"] },
+      { division: "Pingtung County", type:"province", cities: ["Pingtung","Chaozhou","Hengchun"] },
+      { division: "Yilan County", type:"province", cities: ["Yilan","Luodong","Su'ao"] },
+      { division: "Hualien County", type:"province", cities: ["Hualien City","Ji'an"] },
+      { division: "Taitung County", type:"province", cities: ["Taitung City","Beinan"] },
+      { division: "Keelung City (Municipality)", type:"province", cities: ["Keelung"] },
+      { division: "Penghu County", type:"province", cities: ["Magong"] },
+      { division: "Kinmen County", type:"province", cities: ["Jincheng","Jinhu"] },
+      { division: "Lienchiang County (Matsu)", type:"province", cities: ["Nangan","Beigan"] },
+    ];
+
+    // Thailand provinces
+    const thailand = [
+      { division: "Bangkok (Krung Thep Maha Nakhon)", type:"province", cities: ["Bangkok"] },
+      { division: "Chiang Mai", type:"province", cities: ["Chiang Mai","Lamphun (adjacent)","San Sai"] },
+      { division: "Chiang Rai", type:"province", cities: ["Chiang Rai","Mae Sai"] },
+      { division: "Phuket", type:"province", cities: ["Phuket City","Patong"] },
+      { division: "Chonburi", type:"province", cities: ["Chonburi","Pattaya","Si Racha"] },
+      { division: "Rayong", type:"province", cities: ["Rayong","Ban Chang"] },
+      { division: "Nonthaburi", type:"province", cities: ["Nonthaburi","Pak Kret"] },
+      { division: "Pathum Thani", type:"province", cities: ["Rangsit","Thanyaburi"] },
+      { division: "Samut Prakan", type:"province", cities: ["Samut Prakan","Bang Phli"] },
+      { division: "Nakhon Ratchasima", type:"province", cities: ["Nakhon Ratchasima (Korat)","Pak Chong"] },
+      { division: "Khon Kaen", type:"province", cities: ["Khon Kaen"] },
+      { division: "Udon Thani", type:"province", cities: ["Udon Thani"] },
+      { division: "Ubon Ratchathani", type:"province", cities: ["Ubon Ratchathani","Warinsakharat"] },
+      { division: "Songkhla", type:"province", cities: ["Hat Yai","Songkhla"] },
+      { division: "Surat Thani", type:"province", cities: ["Surat Thani","Ko Samui (Na Thon)"] },
+      { division: "Nakhon Si Thammarat", type:"province", cities: ["Nakhon Si Thammarat","Thung Song"] },
+      { division: "Krabi", type:"province", cities: ["Krabi","Ao Nang"] },
+      { division: "Ayutthaya", type:"province", cities: ["Ayutthaya","Bang Pa-in"] },
+      { division: "Nakhon Pathom", type:"province", cities: ["Nakhon Pathom","Sam Phran"] },
+      { division: "Prachuap Khiri Khan", type:"province", cities: ["Hua Hin","Prachuap Khiri Khan"] },
+      { division: "Chiang Rai", type:"province", cities: ["Chiang Rai","Mae Sai"] },
+      { division: "Lampang", type:"province", cities: ["Lampang"] },
+      { division: "Nakhon Sawan", type:"province", cities: ["Nakhon Sawan"] },
+      { division: "Saraburi", type:"province", cities: ["Saraburi"] },
+      { division: "Kanchanaburi", type:"province", cities: ["Kanchanaburi"] },
+      { division: "Phitsanulok", type:"province", cities: ["Phitsanulok"] },
+      { division: "Trang", type:"province", cities: ["Trang"] },
+      { division: "Narathiwat", type:"province", cities: ["Narathiwat","Su-ngai Kolok"] },
+      { division: "Pattani", type:"province", cities: ["Pattani","Yaring"] },
+      { division: "Yala", type:"province", cities: ["Yala","Betong"] },
+    ];
+
+    // Vietnam provinces/municipalities
+    const vietnam = [
+      { division: "Hanoi (Municipality)", type:"province", cities: ["Hanoi"] },
+      { division: "Ho Chi Minh City (Municipality)", type:"province", cities: ["Ho Chi Minh City"] },
+      { division: "Da Nang (Municipality)", type:"province", cities: ["Da Nang"] },
+      { division: "Hai Phong (Municipality)", type:"province", cities: ["Hai Phong"] },
+      { division: "Can Tho (Municipality)", type:"province", cities: ["Can Tho"] },
+      { division: "Binh Duong", type:"province", cities: ["Thu Dau Mot","Di An","Thuan An"] },
+      { division: "Dong Nai", type:"province", cities: ["Bien Hoa","Long Khanh"] },
+      { division: "Ba Ria–Vung Tau", type:"province", cities: ["Vung Tau","Ba Ria"] },
+      { division: "Khanh Hoa", type:"province", cities: ["Nha Trang","Cam Ranh"] },
+      { division: "Quang Ninh", type:"province", cities: ["Ha Long","Uong Bi"] },
+      { division: "Thua Thien Hue", type:"province", cities: ["Hue"] },
+      { division: "Da Lat (Lam Dong)", type:"province", cities: ["Da Lat","Bao Loc"] },
+      { division: "Nghe An", type:"province", cities: ["Vinh","Cua Lo"] },
+      { division: "Thanh Hoa", type:"province", cities: ["Thanh Hoa","Sam Son"] },
+      { division: "Hai Duong", type:"province", cities: ["Hai Duong"] },
+      { division: "Bac Ninh", type:"province", cities: ["Bac Ninh","Tu Son"] },
+      { division: "Thai Nguyen", type:"province", cities: ["Thai Nguyen","Song Cong"] },
+      { division: "Quang Nam", type:"province", cities: ["Tam Ky","Hoi An"] },
+      { division: "Binh Thuan", type:"province", cities: ["Phan Thiet","La Gi"] },
+      { division: "An Giang", type:"province", cities: ["Long Xuyen","Chau Doc"] },
+      { division: "Kien Giang", type:"province", cities: ["Rach Gia","Phu Quoc (Duong Dong)"] },
+      { division: "Soc Trang", type:"province", cities: ["Soc Trang"] },
+      { division: "Bac Giang", type:"province", cities: ["Bac Giang"] },
+      { division: "Nam Dinh", type:"province", cities: ["Nam Dinh"] },
+      { division: "Ninh Binh", type:"province", cities: ["Ninh Binh","Tam Diep"] },
+      { division: "Hai Phong (surroundings)", type:"province", cities: ["Kien An","Do Son"] },
+      { division: "Tay Ninh", type:"province", cities: ["Tay Ninh"] },
+      { division: "Vinh Long", type:"province", cities: ["Vinh Long"] },
+      { division: "Ben Tre", type:"province", cities: ["Ben Tre"] },
+      { division: "Quang Binh", type:"province", cities: ["Dong Hoi"] },
+    ];
+
+    // United States: states + DC with several major cities; not exhaustive for each state.
+    const unitedStates = [
+      { division: "Alabama", type:"state", cities: ["Birmingham","Montgomery","Mobile","Huntsville","Tuscaloosa"] },
+      { division: "Alaska", type:"state", cities: ["Anchorage","Fairbanks","Juneau"] },
+      { division: "Arizona", type:"state", cities: ["Phoenix","Tucson","Mesa","Chandler","Scottsdale"] },
+      { division: "Arkansas", type:"state", cities: ["Little Rock","Fort Smith","Fayetteville","Springdale"] },
+      { division: "California", type:"state", cities: ["Los Angeles","San Diego","San Jose","San Francisco","Fresno","Sacramento","Oakland"] },
+      { division: "Colorado", type:"state", cities: ["Denver","Colorado Springs","Aurora","Fort Collins","Boulder"] },
+      { division: "Connecticut", type:"state", cities: ["Bridgeport","New Haven","Stamford","Hartford"] },
+      { division: "Delaware", type:"state", cities: ["Wilmington","Dover","Newark"] },
+      { division: "District of Columbia", type:"state", cities: ["Washington"] },
+      { division: "Florida", type:"state", cities: ["Jacksonville","Miami","Tampa","Orlando","St. Petersburg"] },
+      { division: "Georgia", type:"state", cities: ["Atlanta","Augusta","Columbus","Savannah","Athens"] },
+      { division: "Hawaii", type:"state", cities: ["Honolulu","Hilo","Kailua"] },
+      { division: "Idaho", type:"state", cities: ["Boise","Meridian","Nampa","Idaho Falls"] },
+      { division: "Illinois", type:"state", cities: ["Chicago","Aurora","Naperville","Joliet","Rockford"] },
+      { division: "Indiana", type:"state", cities: ["Indianapolis","Fort Wayne","Evansville","South Bend"] },
+      { division: "Iowa", type:"state", cities: ["Des Moines","Cedar Rapids","Davenport","Sioux City"] },
+      { division: "Kansas", type:"state", cities: ["Wichita","Overland Park","Kansas City","Topeka"] },
+      { division: "Kentucky", type:"state", cities: ["Louisville","Lexington","Bowling Green"] },
+      { division: "Louisiana", type:"state", cities: ["New Orleans","Baton Rouge","Shreveport","Lafayette"] },
+      { division: "Maine", type:"state", cities: ["Portland","Lewiston","Bangor"] },
+      { division: "Maryland", type:"state", cities: ["Baltimore","Columbia","Silver Spring","Frederick"] },
+      { division: "Massachusetts", type:"state", cities: ["Boston","Worcester","Springfield","Cambridge"] },
+      { division: "Michigan", type:"state", cities: ["Detroit","Grand Rapids","Warren","Sterling Heights","Ann Arbor"] },
+      { division: "Minnesota", type:"state", cities: ["Minneapolis","Saint Paul","Rochester","Bloomington"] },
+      { division: "Mississippi", type:"state", cities: ["Jackson","Gulfport","Biloxi","Hattiesburg"] },
+      { division: "Missouri", type:"state", cities: ["Kansas City","St. Louis","Springfield","Columbia"] },
+      { division: "Montana", type:"state", cities: ["Billings","Missoula","Great Falls","Bozeman"] },
+      { division: "Nebraska", type:"state", cities: ["Omaha","Lincoln","Bellevue","Grand Island"] },
+      { division: "Nevada", type:"state", cities: ["Las Vegas","Henderson","Reno","North Las Vegas","Sparks"] },
+      { division: "New Hampshire", type:"state", cities: ["Manchester","Nashua","Concord"] },
+      { division: "New Jersey", type:"state", cities: ["Newark","Jersey City","Paterson","Elizabeth"] },
+      { division: "New Mexico", type:"state", cities: ["Albuquerque","Las Cruces","Rio Rancho","Santa Fe"] },
+      { division: "New York", type:"state", cities: ["New York City","Buffalo","Rochester","Yonkers","Syracuse"] },
+      { division: "North Carolina", type:"state", cities: ["Charlotte","Raleigh","Greensboro","Durham","Winston-Salem"] },
+      { division: "North Dakota", type:"state", cities: ["Fargo","Bismarck","Grand Forks","Minot"] },
+      { division: "Ohio", type:"state", cities: ["Columbus","Cleveland","Cincinnati","Toledo","Akron"] },
+      { division: "Oklahoma", type:"state", cities: ["Oklahoma City","Tulsa","Norman","Broken Arrow"] },
+      { division: "Oregon", type:"state", cities: ["Portland","Salem","Eugene","Gresham"] },
+      { division: "Pennsylvania", type:"state", cities: ["Philadelphia","Pittsburgh","Allentown","Erie"] },
+      { division: "Rhode Island", type:"state", cities: ["Providence","Warwick","Cranston","Pawtucket"] },
+      { division: "South Carolina", type:"state", cities: ["Charleston","Columbia","North Charleston","Greenville"] },
+      { division: "South Dakota", type:"state", cities: ["Sioux Falls","Rapid City","Aberdeen"] },
+      { division: "Tennessee", type:"state", cities: ["Nashville","Memphis","Knoxville","Chattanooga"] },
+      { division: "Texas", type:"state", cities: ["Houston","San Antonio","Dallas","Austin","Fort Worth","El Paso"] },
+      { division: "Utah", type:"state", cities: ["Salt Lake City","West Valley City","Provo","West Jordan","Orem"] },
+      { division: "Vermont", type:"state", cities: ["Burlington","South Burlington","Rutland"] },
+      { division: "Virginia", type:"state", cities: ["Virginia Beach","Norfolk","Chesapeake","Richmond","Arlington"] },
+      { division: "Washington", type:"state", cities: ["Seattle","Spokane","Tacoma","Vancouver","Bellevue"] },
+      { division: "West Virginia", type:"state", cities: ["Charleston","Huntington","Morgantown","Parkersburg"] },
+      { division: "Wisconsin", type:"state", cities: ["Milwaukee","Madison","Green Bay","Kenosha"] },
+      { division: "Wyoming", type:"state", cities: ["Cheyenne","Casper","Laramie"] },
+      { division: "Puerto Rico (Territory)", type:"state", cities: ["San Juan","Bayamón","Carolina","Ponce"] },
+    ];
+
+    const datasets = {
+      "Taiwan": taiwan,
+      "Thailand": thailand,
+      "Vietnam": vietnam,
+      "United States": unitedStates
+    };
+
+    const content = document.getElementById('content');
+    const q = document.getElementById('q');
+    const chips = [...document.querySelectorAll('.chip')];
+
+    function render() {
+      content.innerHTML = '';
+      const activeCountries = chips.filter(c => c.getAttribute('aria-pressed') === 'true').map(c => c.dataset.country);
+      const term = q.value.trim().toLowerCase();
+
+      for (const country of Object.keys(datasets)) {
+        if (!activeCountries.includes(country)) continue;
+
+        const section = document.createElement('section');
+        section.className = 'country-wrap';
+        const h2 = document.createElement('h2');
+        h2.className = 'country-title';
+        h2.textContent = country;
+        section.appendChild(h2);
+
+        const grid = document.createElement('div');
+        grid.className = 'grid';
+
+        const rows = datasets[country].filter(item => {
+          if (!term) return true;
+          const hay = (item.division + ' ' + item.cities.join(' ')).toLowerCase();
+          return hay.includes(term);
+        });
+
+        rows.forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'card';
+          const h3 = document.createElement('h3');
+          h3.textContent = item.division;
+          const meta = document.createElement('div');
+          meta.className = 'meta';
+          meta.innerHTML = item.type === 'state'
+            ? '<span class="dot dot-state"></span>State'
+            : '<span class="dot dot-province"></span>Province/County';
+          const list = document.createElement('div');
+          list.className = 'list';
+          item.cities.forEach(c => {
+            const pill = document.createElement('span');
+            pill.className = 'pill';
+            pill.textContent = c;
+            list.appendChild(pill);
+          });
+          card.appendChild(h3);
+          card.appendChild(meta);
+          card.appendChild(list);
+          grid.appendChild(card);
+        });
+
+        if (!rows.length) {
+          const none = document.createElement('div');
+          none.className = 'sticky-note';
+          none.textContent = 'No matches in this country.';
+          section.appendChild(none);
+        }
+
+        section.appendChild(grid);
+        content.appendChild(section);
+      }
+
+      if (!content.children.length) {
+        const note = document.createElement('div');
+        note.className = 'sticky-note';
+        note.textContent = 'Enable at least one country filter to view results.';
+        content.appendChild(note);
+      }
+    }
+
+    // Initial render
+    render();
+
+    // Events
+    q.addEventListener('input', render);
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        const pressed = chip.getAttribute('aria-pressed') === 'true';
+        chip.setAttribute('aria-pressed', String(!pressed));
+        render();
+      });
+    });
+  </script>
+</body>
+</html>

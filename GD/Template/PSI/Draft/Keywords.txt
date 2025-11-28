@@ -1,0 +1,5 @@
+site:linkedin.com/in (intitle:"blockchain developer" OR intitle:"smart contract developer" OR intitle:"defi developer" OR intitle:"solidity developer" OR intitle:"ethereum developer" OR intitle:"web3 developer" OR intitle:"crypto developer" OR intitle:"dapp developer" OR intitle:"rust developer" OR intitle:"solana developer" OR intitle:"nft developer" OR intitle:"blockchain engineer" OR intitle:"smart contract engineer" OR intitle:"web3 engineer") "4 connections" "1 connection" -India -Pakistan -Nigeria -Kenya
+
+site:linkedin.com/in "1 connection" intitle:(developer OR engineer) intext:(blockchain OR web3 OR solidity OR defi OR "smart contract" OR ethereum OR crypto OR dapp OR nft) -India -Pakistan -Nigeria -Kenya after:2024
+
+site:linkedin.com/in "1 connection" (intitle:"blockchain" OR intitle:"smart contract" OR intitle:"solidity" OR intitle:"web3" OR intitle:"crypto developer" OR intitle:"frontend" OR intitle:"backend" OR intitle:"full stack") (intext:"blockchain" OR intext:"web3" OR intext:"smart contract" OR intext:"solidity" OR intext:"ethereum" OR intext:"crypto") -HR -recruiter

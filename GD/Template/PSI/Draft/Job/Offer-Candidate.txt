@@ -1,0 +1,4 @@
+Hi, we're building a Web3 staking platform that will integrate staking services, NFT marketplaces, and key features powered by our Metaverse game tokens and NFT assets.
+To support this, we’re looking for a highly skilled and security-focused Blockchain Developer with deep expertise in Solidity, EVM-compatible chains, and smart contract architecture.
+You’ll play a critical role in developing the token issuance and lifecycle management layer, as well as integrating with custodians, KYC providers, and internal APIs.
+If you're passionate about secure smart contract development and excited to shape the future of Web3 gaming, apply now. Thank you.

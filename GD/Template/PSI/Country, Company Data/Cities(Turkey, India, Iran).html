@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Major Cities by State/Province: Turkey, India, Iran</title>
+<meta name="color-scheme" content="dark light" />
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #111827;
+    --muted: #94a3b8;
+    --text: #e5e7eb;
+    --accent: #22c55e;
+    --accent-2: #60a5fa;
+    --border: #1f2937;
+    --chip: #0b1220;
+    --chip-border: #243244;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --radius: 12px;
+
+    --density-y: 0.7rem;
+    --density-x: 0.9rem;
+    --font-size: 16px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :root { scroll-behavior: smooth; }
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: radial-gradient(1200px 700px at 10% -10%, #0b1220, var(--bg)) no-repeat fixed;
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    line-height: 1.5;
+    font-size: var(--font-size);
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background:
+      linear-gradient(180deg, rgba(15,23,42,.9), rgba(15,23,42,.65) 55%, rgba(15,23,42,0));
+    border-bottom: 1px solid var(--border);
+    padding: 1rem .75rem;
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 .5rem;
+  }
+  h1 {
+    font-size: clamp(1.15rem, 3.5vw, 1.75rem);
+    margin: 0 0 .25rem 0;
+    letter-spacing: .2px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: .95rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem .75rem 2rem;
+  }
+
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .75rem;
+    margin: 1rem 0;
+  }
+  @media (min-width: 720px) {
+    .controls { grid-template-columns: 2fr 1fr; }
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+
+  .searchbar {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: .55rem .7rem;
+    box-shadow: var(--shadow);
+  }
+  .searchbar svg {
+    flex: 0 0 auto;
+  }
+  .searchbar input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--text);
+    font-size: 1rem;
+    min-width: 140px;
+  }
+  .clear-btn {
+    border: 1px solid var(--chip-border);
+    background: var(--chip);
+    color: var(--muted);
+    padding: .35rem .55rem;
+    border-radius: 999px;
+    font-size: .85rem;
+    cursor: pointer;
+  }
+  .clear-btn:hover { color: var(--text); border-color: #315076; }
+
+  .filter-row {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+  }
+  .chip {
+    border: 1px solid var(--chip-border);
+    background: var(--chip);
+    color: var(--text);
+    padding: .45rem .7rem;
+    border-radius: 999px;
+    font-size: .9rem;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .06s ease, background .2s ease, border-color .2s ease;
+  }
+  .chip[aria-pressed="true"],
+  .chip.active {
+    background: linear-gradient(90deg, rgba(34,197,94,.18), rgba(96,165,250,.18));
+    border-color: #2a3f57;
+  }
+  .chip:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    outline-offset: 2px;
+  }
+  .chip:active { transform: scale(.98); }
+
+  .options {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--muted);
+    font-size: .9rem;
+  }
+  .switch {
+    --h: 22px;
+    position: relative;
+    width: 44px;
+    height: var(--h);
+    border: 1px solid var(--chip-border);
+    background: var(--chip);
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .switch input { appearance: none; position: absolute; inset: 0; margin: 0; }
+  .switch .knob {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    left: 2px;
+    width: calc(var(--h) - 6px);
+    height: calc(var(--h) - 6px);
+    background: #1a2640;
+    border: 1px solid var(--chip-border);
+    border-radius: 50%;
+    transition: left .2s ease;
+  }
+  .switch input:checked + .knob { left: calc(100% - (var(--h) - 6px) - 2px); }
+
+  .meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: .9rem;
+    margin: .2rem 0 .6rem;
+  }
+
+  .tbl-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead th {
+    top: calc(64px + 1rem);
+    background: #0e1527;
+    color: var(--muted);
+    font-weight: 600;
+    text-align: left;
+    font-size: .92rem;
+    letter-spacing: .02em;
+    border-bottom: 1px solid var(--border);
+    padding: .75rem .9rem;
+    z-index: 10;
+  }
+  /* Scroll shadow on sticky header */
+  .tbl-wrap::before {
+    content: "";
+    position: sticky;
+    top: calc(64px + 1rem + 40px);
+    display: block;
+    height: 6px;
+    background: linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,0));
+    z-index: 9;
+  }
+
+  tbody td {
+    padding: var(--density-y) var(--density-x);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02);
+  }
+  .country-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .22rem .6rem;
+    border-radius: .5rem;
+    border: 1px solid var(--chip-border);
+    background: #0c1425;
+    font-size: .85rem;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .badge-tr { border-color: rgba(96,165,250,.35); }
+  .badge-in { border-color: rgba(34,197,94,.35); }
+  .badge-ir { border-color: rgba(244,114,182,.35); }
+
+  .division {
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem .5rem;
+  }
+  .city {
+    padding: .18rem .5rem;
+    border-radius: .5rem;
+    border: 1px solid var(--chip-border);
+    background: rgba(255,255,255,.03);
+    font-size: .9rem;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .count {
+    color: var(--muted);
+    font-size: .85rem;
+  }
+
+  .footer {
+    color: var(--muted);
+    font-size: .9rem;
+    margin: 1rem 0 2rem;
+  }
+
+  .empty {
+    text-align: center;
+    padding: 2.2rem 1rem;
+    color: var(--muted);
+  }
+
+  mark {
+    background: color-mix(in srgb, var(--accent-2) 24%, transparent);
+    color: inherit;
+    padding: 0 .15em;
+    border-radius: 4px;
+  }
+
+  .hidden { display: none !important; }
+
+  /* Compact density mode */
+  .compact tbody td { padding: .5rem .6rem; }
+  .compact .city { padding: .15rem .45rem; font-size: .86rem; }
+
+  /* Mobile-first stacking: turn table rows into cards on very narrow screens */
+  @media (max-width: 520px) {
+    thead { display: none; }
+    .table, tbody, tr, td { display: block; width: 100%; }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody td { border: 0; padding: .5rem .75rem; }
+    tbody td:nth-child(1) { padding-top: .9rem; }
+    tbody td:nth-child(3) { padding-bottom: .9rem; }
+    tbody td[data-label]::before {
+      content: attr(data-label) ": ";
+      color: var(--muted);
+      font-weight: 600;
+      margin-right: .25rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <header role="banner">
+    <div class="header-inner">
+      <h1 id="page-title">Major Cities by State/Province</h1>
+      <div class="subtitle" aria-describedby="page-title">
+        Turkey (81 provinces), India (28 states + 8 union territories), Iran (31 provinces)
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <section class="controls" aria-label="Filters and search">
+      <div class="row">
+        <div class="searchbar" role="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 21l-4.35-4.35m1.1-4.4a6.75 6.75 0 11-13.5 0 6.75 6.75 0 0113.5 0z" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <input id="search" type="search" placeholder="Search country, state/province, or city..." aria-label="Search all fields" autocomplete="off" />
+          <button id="clear" class="clear-btn" type="button" aria-label="Clear search" title="Clear">Clear</button>
+        </div>
+      </div>
+      <div class="row" style="justify-content: space-between;">
+        <div class="filter-row" role="toolbar" aria-label="Country filters">
+          <button class="chip active" data-country="All" aria-pressed="true" type="button">All</button>
+          <button class="chip" data-country="Turkey" aria-pressed="false" type="button">Turkey</button>
+          <button class="chip" data-country="India" aria-pressed="false" type="button">India</button>
+          <button class="chip" data-country="Iran" aria-pressed="false" type="button">Iran</button>
+        </div>
+        <div class="options">
+          <label class="switch" title="Toggle compact density">
+            <input id="density" type="checkbox" aria-label="Toggle compact density">
+            <span class="knob"></span>
+          </label>
+          <span>Compact</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="meta-row" role="status" aria-live="polite">
+      <span class="count" id="row-count">(0 divisions shown)</span>
+      <span class="count" id="active-filter">Filter: All</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="table" id="data-table">
+        <thead>
+          <tr>
+            <th scope="col" style="width: 120px;">Country</th>
+            <th scope="col">State/Province</th>
+            <th scope="col">Major Cities</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <!-- Turkey -->
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Adana</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Adana</span><span class="city">Ceyhan</span><span class="city">Seyhan</span><span class="city">Yüreğir</span><span class="city">Kozan</span><span class="city">İmamoğlu</span><span class="city">Karataş</span><span class="city">Feke</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Adıyaman</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Adıyaman</span><span class="city">Kahta</span><span class="city">Besni</span><span class="city">Gölbaşı</span><span class="city">Samsat</span><span class="city">Çelikhan</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Afyonkarahisar</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Afyonkarahisar</span><span class="city">Sandıklı</span><span class="city">Dinar</span><span class="city">Bolvadin</span><span class="city">Emirdağ</span><span class="city">Çay</span><span class="city">İscehisar</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Ağrı</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ağrı</span><span class="city">Doğubayazıt</span><span class="city">Patnos</span><span class="city">Tutak</span><span class="city">Eleşkirt</span><span class="city">Taşlıçay</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Aksaray</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Aksaray</span><span class="city">Ortaköy</span><span class="city">Şereflikoçhisar</span><span class="city">Güzelyurt</span><span class="city">Sarıyahşi</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Amasya</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Amasya</span><span class="city">Merzifon</span><span class="city">Suluova</span><span class="city">Taşova</span><span class="city">Gümüşhacıköy</span><span class="city">Hamamözü</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Ankara</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ankara</span><span class="city">Keçiören</span><span class="city">Çankaya</span><span class="city">Yenimahalle</span><span class="city">Mamak</span><span class="city">Sincan</span><span class="city">Etimesgut</span><span class="city">Altındağ</span><span class="city">Polatlı</span><span class="city">Beypazarı</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Antalya</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Antalya</span><span class="city">Kepez</span><span class="city">Muratpaşa</span><span class="city">Alanya</span><span class="city">Manavgat</span><span class="city">Konyaaltı</span><span class="city">Serik</span><span class="city">Kemer</span><span class="city">Gazipaşa</span><span class="city">Korkuteli</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Ardahan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ardahan</span><span class="city">Göle</span><span class="city">Çıldır</span><span class="city">Posof</span><span class="city">Hanak</span><span class="city">Damal</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Artvin</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Artvin</span><span class="city">Hopa</span><span class="city">Arhavi</span><span class="city">Borçka</span><span class="city">Yusufeli</span><span class="city">Şavşat</span><span class="city">Murgul</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Aydın</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Aydın</span><span class="city">Efeler</span><span class="city">Nazilli</span><span class="city">Söke</span><span class="city">Kuşadası</span><span class="city">Didim</span><span class="city">Çine</span><span class="city">Germencik</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Balıkesir</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Balıkesir</span><span class="city">Bandırma</span><span class="city">Edremit</span><span class="city">Ayvalık</span><span class="city">Gönen</span><span class="city">Burhaniye</span><span class="city">Bigadiç</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Bartın</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bartın</span><span class="city">Amasra</span><span class="city">Ulus</span><span class="city">Kurucaşile</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Batman</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Batman</span><span class="city">Beşiri</span><span class="city">Kozluk</span><span class="city">Sason</span><span class="city">Hasankeyf</span><span class="city">Gercüş</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Bayburt</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bayburt</span><span class="city">Aydıntepe</span><span class="city">Demirözü</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Bilecik</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bilecik</span><span class="city">Bozüyük</span><span class="city">Osmaneli</span><span class="city">Söğüt</span><span class="city">Gölpazarı</span><span class="city">Pazaryeri</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Bingöl</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bingöl</span><span class="city">Genç</span><span class="city">Solhan</span><span class="city">Karlıova</span><span class="city">Adaklı</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Bitlis</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bitlis</span><span class="city">Tatvan</span><span class="city">Ahlat</span><span class="city">Güroymak</span><span class="city">Hizan</span><span class="city">Mutki</span><span class="city">Adilcevaz</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Bolu</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bolu</span><span class="city">Gerede</span><span class="city">Mudurnu</span><span class="city">Göynük</span><span class="city">Yeniçağa</span><span class="city">Mengen</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Burdur</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Burdur</span><span class="city">Bucak</span><span class="city">Gölhisar</span><span class="city">Yeşilova</span><span class="city">Tefenni</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Bursa</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bursa</span><span class="city">Osmangazi</span><span class="city">Yıldırım</span><span class="city">Nilüfer</span><span class="city">İnegöl</span><span class="city">Gemlik</span><span class="city">Mustafakemalpaşa</span><span class="city">Mudanya</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Çanakkale</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Çanakkale</span><span class="city">Biga</span><span class="city">Çan</span><span class="city">Gelibolu</span><span class="city">Ezine</span><span class="city">Ayvacık</span><span class="city">Lapseki</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Çankırı</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Çankırı</span><span class="city">Çerkeş</span><span class="city">Orta</span><span class="city">Ilgaz</span><span class="city">Şabanözü</span><span class="city">Kurşunlu</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Çorum</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Çorum</span><span class="city">Sungurlu</span><span class="city">Osmancık</span><span class="city">İskilip</span><span class="city">Alaca</span><span class="city">Kargı</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Denizli</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Denizli</span><span class="city">Pamukkale</span><span class="city">Merkezefendi</span><span class="city">Çivril</span><span class="city">Tavas</span><span class="city">Sarayköy</span><span class="city">Acıpayam</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Diyarbakır</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Diyarbakır</span><span class="city">Bağlar</span><span class="city">Kayapınar</span><span class="city">Yenişehir</span><span class="city">Sur</span><span class="city">Bismil</span><span class="city">Ergani</span><span class="city">Silvan</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Düzce</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Düzce</span><span class="city">Akçakoca</span><span class="city">Kaynaşlı</span><span class="city">Cumayeri</span><span class="city">Gölyaka</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Edirne</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Edirne</span><span class="city">Keşan</span><span class="city">Uzunköprü</span><span class="city">İpsala</span><span class="city">Havsa</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Elazığ</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Elazığ</span><span class="city">Keban</span><span class="city">Karakoçan</span><span class="city">Palu</span><span class="city">Sivrice</span><span class="city">Baskil</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Erzincan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Erzincan</span><span class="city">Tercan</span><span class="city">Refahiye</span><span class="city">Üzümlü</span><span class="city">Kemah</span><span class="city">Çayırlı</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Erzurum</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Erzurum</span><span class="city">Yakutiye</span><span class="city">Palandöken</span><span class="city">Aziziye</span><span class="city">Oltu</span><span class="city">Horasan</span><span class="city">Pasinler</span><span class="city">Aşkale</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Eskişehir</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Eskişehir</span><span class="city">Tepebaşı</span><span class="city">Odunpazarı</span><span class="city">Sivrihisar</span><span class="city">Çifteler</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Gaziantep</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Gaziantep</span><span class="city">Şehitkamil</span><span class="city">Şahinbey</span><span class="city">Nizip</span><span class="city">İslahiye</span><span class="city">Oğuzeli</span><span class="city">Araban</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Giresun</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Giresun</span><span class="city">Bulancak</span><span class="city">Tirebolu</span><span class="city">Görele</span><span class="city">Espiye</span><span class="city">Eynesil</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Gümüşhane</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Gümüşhane</span><span class="city">Kelkit</span><span class="city">Şiran</span><span class="city">Torul</span><span class="city">Kürtün</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Hakkâri</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Hakkâri</span><span class="city">Yüksekova</span><span class="city">Şemdinli</span><span class="city">Çukurca</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Hatay</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Antakya</span><span class="city">İskenderun</span><span class="city">Defne</span><span class="city">Dörtyol</span><span class="city">Kırıkhan</span><span class="city">Reyhanlı</span><span class="city">Samandağ</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Iğdır</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Iğdır</span><span class="city">Tuzluca</span><span class="city">Aralık</span><span class="city">Karakoyunlu</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Isparta</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Isparta</span><span class="city">Eğirdir</span><span class="city">Yalvaç</span><span class="city">Şarkikaraağaç</span><span class="city">Keçiborlu</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">İstanbul</td>
+            <td data-label="Cities"><div class="cities"><span class="city">İstanbul</span><span class="city">Kadıköy</span><span class="city">Üsküdar</span><span class="city">Bakırköy</span><span class="city">Beşiktaş</span><span class="city">Şişli</span><span class="city">Beyoğlu</span><span class="city">Bağcılar</span><span class="city">Esenyurt</span><span class="city">Pendik</span><span class="city">Kartal</span><span class="city">Maltepe</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">İzmir</td>
+            <td data-label="Cities"><div class="cities"><span class="city">İzmir</span><span class="city">Konak</span><span class="city">Karşıyaka</span><span class="city">Bornova</span><span class="city">Buca</span><span class="city">Gaziemir</span><span class="city">Bayraklı</span><span class="city">Çiğli</span><span class="city">Menemen</span><span class="city">Torbalı</span><span class="city">Aliağa</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kahramanmaraş</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kahramanmaraş</span><span class="city">Onikişubat</span><span class="city">Dulkadiroğlu</span><span class="city">Elbistan</span><span class="city">Afşin</span><span class="city">Türkoğlu</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Karabük</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Karabük</span><span class="city">Safranbolu</span><span class="city">Eskipazar</span><span class="city">Yenice</span><span class="city">Ovacık</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Karaman</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Karaman</span><span class="city">Ermenek</span><span class="city">Ayrancı</span><span class="city">Kazımkarabekir</span><span class="city">Başyayla</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kars</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kars</span><span class="city">Kağızman</span><span class="city">Sarıkamış</span><span class="city">Akyaka</span><span class="city">Arpaçay</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kastamonu</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kastamonu</span><span class="city">Taşköprü</span><span class="city">Tosya</span><span class="city">İnebolu</span><span class="city">Cide</span><span class="city">Araç</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kayseri</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kayseri</span><span class="city">Kocasinan</span><span class="city">Melikgazi</span><span class="city">Talas</span><span class="city">Develi</span><span class="city">Bünyan</span><span class="city">Yahyalı</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kırıkkale</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kırıkkale</span><span class="city">Keskin</span><span class="city">Yahşihan</span><span class="city">Delice</span><span class="city">Balışeyh</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kırklareli</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kırklareli</span><span class="city">Lüleburgaz</span><span class="city">Babaeski</span><span class="city">Vize</span><span class="city">Pınarhisar</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kırşehir</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kırşehir</span><span class="city">Kaman</span><span class="city">Mucur</span><span class="city">Çiçekdağı</span><span class="city">Akpınar</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kilis</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kilis</span><span class="city">Elbeyli</span><span class="city">Musabeyli</span><span class="city">Polateli</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kocaeli</td>
+            <td data-label="Cities"><div class="cities"><span class="city">İzmit</span><span class="city">Gebze</span><span class="city">Darıca</span><span class="city">Çayırova</span><span class="city">Körfez</span><span class="city">Gölcük</span><span class="city">Karamürsel</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Konya</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Konya</span><span class="city">Selçuklu</span><span class="city">Karatay</span><span class="city">Meram</span><span class="city">Ereğli</span><span class="city">Akşehir</span><span class="city">Beyşehir</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Kütahya</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kütahya</span><span class="city">Tavşanlı</span><span class="city">Simav</span><span class="city">Gediz</span><span class="city">Emet</span><span class="city">Domaniç</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Malatya</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Malatya</span><span class="city">Yeşilyurt</span><span class="city">Battalgazi</span><span class="city">Doğanşehir</span><span class="city">Akçadağ</span><span class="city">Pütürge</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Manisa</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Manisa</span><span class="city">Yunusemre</span><span class="city">Şehzadeler</span><span class="city">Akhisar</span><span class="city">Turgutlu</span><span class="city">Salihli</span><span class="city">Soma</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Mardin</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Mardin</span><span class="city">Kızıltepe</span><span class="city">Midyat</span><span class="city">Nusaybin</span><span class="city">Artuklu</span><span class="city">Derik</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Mersin</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Mersin</span><span class="city">Yenişehir</span><span class="city">Mezitli</span><span class="city">Akdeniz</span><span class="city">Tarsus</span><span class="city">Toroslar</span><span class="city">Erdemli</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Muğla</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Muğla</span><span class="city">Bodrum</span><span class="city">Fethiye</span><span class="city">Marmaris</span><span class="city">Milas</span><span class="city">Yatağan</span><span class="city">Datça</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Muş</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Muş</span><span class="city">Bulanık</span><span class="city">Malazgirt</span><span class="city">Varto</span><span class="city">Hasköy</span><span class="city">Korkut</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Nevşehir</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Nevşehir</span><span class="city">Ürgüp</span><span class="city">Avanos</span><span class="city">Gülşehir</span><span class="city">Acıgöl</span><span class="city">Kozaklı</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Niğde</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Niğde</span><span class="city">Bor</span><span class="city">Ulukışla</span><span class="city">Çiftlik</span><span class="city">Altunhisar</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Ordu</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ordu</span><span class="city">Altınordu</span><span class="city">Ünye</span><span class="city">Fatsa</span><span class="city">Perşembe</span><span class="city">Gürgentepe</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Osmaniye</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Osmaniye</span><span class="city">Kadirli</span><span class="city">Düziçi</span><span class="city">Bahçe</span><span class="city">Toprakkale</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Rize</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Rize</span><span class="city">Çayeli</span><span class="city">Ardeşen</span><span class="city">Pazar</span><span class="city">Fındıklı</span><span class="city">İkizdere</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Sakarya</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Adapazarı</span><span class="city">Serdivan</span><span class="city">Erenler</span><span class="city">Akyazı</span><span class="city">Hendek</span><span class="city">Karasu</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Samsun</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Samsun</span><span class="city">İlkadım</span><span class="city">Atakum</span><span class="city">Canik</span><span class="city">Bafra</span><span class="city">Tekkeköy</span><span class="city">Çarşamba</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Siirt</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Siirt</span><span class="city">Kurtalan</span><span class="city">Pervari</span><span class="city">Baykan</span><span class="city">Eruh</span><span class="city">Şirvan</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Sinop</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Sinop</span><span class="city">Boyabat</span><span class="city">Gerze</span><span class="city">Ayancık</span><span class="city">Durağan</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Sivas</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Sivas</span><span class="city">Şarkışla</span><span class="city">Zara</span><span class="city">Yıldızeli</span><span class="city">Gemerek</span><span class="city">Suşehri</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Şanlıurfa</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Şanlıurfa</span><span class="city">Eyyübiye</span><span class="city">Haliliye</span><span class="city">Karaköprü</span><span class="city">Suruç</span><span class="city">Viranşehir</span><span class="city">Birecik</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Şırnak</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Şırnak</span><span class="city">Cizre</span><span class="city">Silopi</span><span class="city">İdil</span><span class="city">Uludere</span><span class="city">Beytüşşebap</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Tekirdağ</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Tekirdağ</span><span class="city">Çorlu</span><span class="city">Çerkezköy</span><span class="city">Süleymanpaşa</span><span class="city">Kapaklı</span><span class="city">Malkara</span><span class="city">Saray</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Tokat</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Tokat</span><span class="city">Erbaa</span><span class="city">Niksar</span><span class="city">Turhal</span><span class="city">Zile</span><span class="city">Almus</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Trabzon</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Trabzon</span><span class="city">Ortahisar</span><span class="city">Akçaabat</span><span class="city">Of</span><span class="city">Arsin</span><span class="city">Yomra</span><span class="city">Sürmene</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Tunceli</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Tunceli</span><span class="city">Pertek</span><span class="city">Hozat</span><span class="city">Mazgirt</span><span class="city">Ovacık</span><span class="city">Nazımiye</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Uşak</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Uşak</span><span class="city">Banaz</span><span class="city">Eşme</span><span class="city">Sivaslı</span><span class="city">Karahallı</span><span class="city">Ulubey</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Van</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Van</span><span class="city">İpekyolu</span><span class="city">Edremit</span><span class="city">Tuşba</span><span class="city">Erciş</span><span class="city">Gürpınar</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Yalova</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Yalova</span><span class="city">Çiftlikköy</span><span class="city">Altınova</span><span class="city">Armutlu</span><span class="city">Termal</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Yozgat</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Yozgat</span><span class="city">Sorgun</span><span class="city">Akdağmadeni</span><span class="city">Boğazlıyan</span><span class="city">Yerköy</span><span class="city">Sarıkaya</span></div></td>
+          </tr>
+          <tr data-country="Turkey">
+            <td data-label="Country"><span class="country-badge badge-tr">Turkey</span></td>
+            <td class="division" data-label="Division">Zonguldak</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Zonguldak</span><span class="city">Ereğli</span><span class="city">Çaycuma</span><span class="city">Devrek</span><span class="city">Kozlu</span><span class="city">Alaplı</span></div></td>
+          </tr>
+
+          <!-- India (States) -->
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Andhra Pradesh</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Visakhapatnam</span><span class="city">Vijayawada</span><span class="city">Guntur</span><span class="city">Nellore</span><span class="city">Kurnool</span><span class="city">Kakinada</span><span class="city">Tirupati</span><span class="city">Rajahmundry</span><span class="city">Anantapur</span><span class="city">Kadapa</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Arunachal Pradesh</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Itanagar</span><span class="city">Naharlagun</span><span class="city">Tawang</span><span class="city">Pasighat</span><span class="city">Ziro</span><span class="city">Bomdila</span><span class="city">Aalo (Along)</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Assam</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Guwahati</span><span class="city">Silchar</span><span class="city">Dibrugarh</span><span class="city">Jorhat</span><span class="city">Nagaon</span><span class="city">Tinsukia</span><span class="city">Tezpur</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Bihar</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Patna</span><span class="city">Gaya</span><span class="city">Bhagalpur</span><span class="city">Muzaffarpur</span><span class="city">Purnia</span><span class="city">Ara</span><span class="city">Darbhanga</span><span class="city">Begusarai</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Chhattisgarh</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Raipur</span><span class="city">Bhilai</span><span class="city">Bilaspur</span><span class="city">Korba</span><span class="city">Durg</span><span class="city">Raigarh</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Goa</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Panaji</span><span class="city">Margao</span><span class="city">Vasco da Gama</span><span class="city">Mapusa</span><span class="city">Ponda</span><span class="city">Bicholim</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Gujarat</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ahmedabad</span><span class="city">Surat</span><span class="city">Vadodara</span><span class="city">Rajkot</span><span class="city">Bhavnagar</span><span class="city">Jamnagar</span><span class="city">Gandhinagar</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Haryana</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Faridabad</span><span class="city">Gurugram</span><span class="city">Panipat</span><span class="city">Ambala</span><span class="city">Yamunanagar</span><span class="city">Hisar</span><span class="city">Rohtak</span><span class="city">Karnal</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Himachal Pradesh</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Shimla</span><span class="city">Mandi</span><span class="city">Solan</span><span class="city">Dharamshala</span><span class="city">Kullu</span><span class="city">Una</span><span class="city">Bilaspur</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Jharkhand</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ranchi</span><span class="city">Jamshedpur</span><span class="city">Dhanbad</span><span class="city">Bokaro</span><span class="city">Hazaribagh</span><span class="city">Deoghar</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Karnataka</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bengaluru</span><span class="city">Mysuru</span><span class="city">Hubballi-Dharwad</span><span class="city">Belagavi</span><span class="city">Mangaluru</span><span class="city">Shivamogga</span><span class="city">Kalaburagi</span><span class="city">Ballari</span><span class="city">Tumakuru</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Kerala</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Thiruvananthapuram</span><span class="city">Kochi</span><span class="city">Kozhikode</span><span class="city">Thrissur</span><span class="city">Kollam</span><span class="city">Alappuzha</span><span class="city">Kannur</span><span class="city">Palakkad</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Madhya Pradesh</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Indore</span><span class="city">Bhopal</span><span class="city">Jabalpur</span><span class="city">Gwalior</span><span class="city">Ujjain</span><span class="city">Sagar</span><span class="city">Satna</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Maharashtra</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Mumbai</span><span class="city">Pune</span><span class="city">Nagpur</span><span class="city">Nashik</span><span class="city">Thane</span><span class="city">Aurangabad (Chhatrapati Sambhajinagar)</span><span class="city">Solapur</span><span class="city">Amravati</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Manipur</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Imphal</span><span class="city">Thoubal</span><span class="city">Kakching</span><span class="city">Ukhrul</span><span class="city">Churachandpur</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Meghalaya</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Shillong</span><span class="city">Tura</span><span class="city">Jowai</span><span class="city">Nongstoin</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Mizoram</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Aizawl</span><span class="city">Lunglei</span><span class="city">Saiha</span><span class="city">Champhai</span><span class="city">Kolasib</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Nagaland</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Dimapur</span><span class="city">Kohima</span><span class="city">Mokokchung</span><span class="city">Tuensang</span><span class="city">Wokha</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Odisha</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bhubaneswar</span><span class="city">Cuttack</span><span class="city">Rourkela</span><span class="city">Berhampur</span><span class="city">Sambalpur</span><span class="city">Balasore</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Punjab</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ludhiana</span><span class="city">Amritsar</span><span class="city">Jalandhar</span><span class="city">Patiala</span><span class="city">Bathinda</span><span class="city">Mohali</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Rajasthan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Jaipur</span><span class="city">Jodhpur</span><span class="city">Kota</span><span class="city">Bikaner</span><span class="city">Ajmer</span><span class="city">Udaipur</span><span class="city">Alwar</span><span class="city">Sikar</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Sikkim</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Gangtok</span><span class="city">Namchi</span><span class="city">Gyalshing</span><span class="city">Mangan</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Tamil Nadu</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Chennai</span><span class="city">Coimbatore</span><span class="city">Madurai</span><span class="city">Tiruchirappalli</span><span class="city">Salem</span><span class="city">Tirunelveli</span><span class="city">Erode</span><span class="city">Vellore</span><span class="city">Thoothukudi</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Telangana</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Hyderabad</span><span class="city">Warangal</span><span class="city">Karimnagar</span><span class="city">Khammam</span><span class="city">Nizamabad</span><span class="city">Ramagundam</span><span class="city">Mahbubnagar</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Tripura</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Agartala</span><span class="city">Udaipur</span><span class="city">Dharmanagar</span><span class="city">Belonia</span><span class="city">Kailashahar</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Uttar Pradesh</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Lucknow</span><span class="city">Kanpur</span><span class="city">Ghaziabad</span><span class="city">Agra</span><span class="city">Varanasi</span><span class="city">Prayagraj</span><span class="city">Meerut</span><span class="city">Bareilly</span><span class="city">Aligarh</span><span class="city">Moradabad</span><span class="city">Noida</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Uttarakhand</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Dehradun</span><span class="city">Haridwar</span><span class="city">Haldwani</span><span class="city">Roorkee</span><span class="city">Rishikesh</span><span class="city">Kashipur</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">West Bengal</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kolkata</span><span class="city">Howrah</span><span class="city">Durgapur</span><span class="city">Asansol</span><span class="city">Siliguri</span><span class="city">Bardhaman</span><span class="city">Kharagpur</span></div></td>
+          </tr>
+
+          <!-- India (Union Territories) -->
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Andaman and Nicobar Islands (UT)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Port Blair</span><span class="city">Garacharma</span><span class="city">Bombooflat</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Chandigarh (UT)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Chandigarh</span><span class="city">Manimajra</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Dadra and Nagar Haveli and Daman and Diu (UT)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Silvassa</span><span class="city">Daman</span><span class="city">Diu</span><span class="city">Amli</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Delhi (NCT)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">New Delhi</span><span class="city">Delhi</span><span class="city">Dwarka</span><span class="city">Rohini</span><span class="city">Karol Bagh</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Jammu and Kashmir (UT)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Srinagar</span><span class="city">Jammu</span><span class="city">Anantnag</span><span class="city">Baramulla</span><span class="city">Kathua</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Ladakh (UT)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Leh</span><span class="city">Kargil</span><span class="city">Nubra</span><span class="city">Zanskar</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Lakshadweep (UT)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kavaratti</span><span class="city">Agatti</span><span class="city">Amini</span><span class="city">Andrott</span></div></td>
+          </tr>
+          <tr data-country="India">
+            <td data-label="Country"><span class="country-badge badge-in">India</span></td>
+            <td class="division" data-label="Division">Puducherry (UT)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Puducherry</span><span class="city">Karaikal</span><span class="city">Yanam</span><span class="city">Mahe</span></div></td>
+          </tr>
+
+          <!-- Iran -->
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Alborz</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Karaj</span><span class="city">Fardis</span><span class="city">Nazarabad</span><span class="city">Hashtgerd</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Ardabil</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ardabil</span><span class="city">Parsabad</span><span class="city">Germi</span><span class="city">Khalkhal</span><span class="city">Namin</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Bushehr</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bushehr</span><span class="city">Borazjan</span><span class="city">Ganaveh</span><span class="city">Khormuj</span><span class="city">Asaluyeh</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Chaharmahal and Bakhtiari</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Shahrekord</span><span class="city">Borujen</span><span class="city">Farrokhshahr</span><span class="city">Lordegan</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">East Azerbaijan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Tabriz</span><span class="city">Maragheh</span><span class="city">Marand</span><span class="city">Ahar</span><span class="city">Bonab</span><span class="city">Sarab</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Fars</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Shiraz</span><span class="city">Marvdasht</span><span class="city">Jahrom</span><span class="city">Fasa</span><span class="city">Kazerun</span><span class="city">Lar</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Gilan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Rasht</span><span class="city">Anzali</span><span class="city">Lahijan</span><span class="city">Langarud</span><span class="city">Rudsar</span><span class="city">Astara</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Golestan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Gorgan</span><span class="city">Gonbad-e Kavus</span><span class="city">Aliabad</span><span class="city">Bandar Torkaman</span><span class="city">Kordkuy</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Hamadan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Hamadan</span><span class="city">Malayer</span><span class="city">Nahavand</span><span class="city">Tuyserkan</span><span class="city">Asadabad</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Hormozgan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bandar Abbas</span><span class="city">Bandar Lengeh</span><span class="city">Qeshm</span><span class="city">Minab</span><span class="city">Kish</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Ilam</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ilam</span><span class="city">Dehloran</span><span class="city">Mehran</span><span class="city">Abdanan</span><span class="city">Eyvan</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Isfahan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Isfahan</span><span class="city">Kashan</span><span class="city">Najafabad</span><span class="city">Khomeinishahr</span><span class="city">Shahin Shahr</span><span class="city">Zarrin Shahr</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Kerman</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kerman</span><span class="city">Sirjan</span><span class="city">Rafsanjan</span><span class="city">Bam</span><span class="city">Jiroft</span><span class="city">Zarand</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Kermanshah</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Kermanshah</span><span class="city">Eslamabad-e Gharb</span><span class="city">Javanrud</span><span class="city">Paveh</span><span class="city">Sahneh</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Khuzestan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Ahvaz</span><span class="city">Abadan</span><span class="city">Dezful</span><span class="city">Khorramshahr</span><span class="city">Masjed Soleyman</span><span class="city">Andimeshk</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Kohgiluyeh and Boyer-Ahmad</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Yasuj</span><span class="city">Dehdasht</span><span class="city">Gachsaran</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Kurdistan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Sanandaj</span><span class="city">Saqqez</span><span class="city">Marivan</span><span class="city">Baneh</span><span class="city">Kamyaran</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Lorestan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Khorramabad</span><span class="city">Borujerd</span><span class="city">Dorud</span><span class="city">Kuhdasht</span><span class="city">Azna</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Markazi</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Arak</span><span class="city">Saveh</span><span class="city">Khomein</span><span class="city">Mahallat</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Mazandaran</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Sari</span><span class="city">Amol</span><span class="city">Babol</span><span class="city">Qaem Shahr</span><span class="city">Tonekabon</span><span class="city">Savadkuh</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">North Khorasan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Bojnurd</span><span class="city">Shirvan</span><span class="city">Esfarayen</span><span class="city">Ashkhaneh</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Qazvin</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Qazvin</span><span class="city">Takestan</span><span class="city">Abyek</span><span class="city">Aveh</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Qom</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Qom</span><span class="city">Salafchegan</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Razavi Khorasan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Mashhad</span><span class="city">Neyshabur</span><span class="city">Sabzevar</span><span class="city">Torbat-e Heydarieh</span><span class="city">Quchan</span><span class="city">Chenaran</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Semnan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Semnan</span><span class="city">Shahrud</span><span class="city">Garmsar</span><span class="city">Damghan</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Sistan and Baluchestan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Zahedan</span><span class="city">Chabahar</span><span class="city">Zabol</span><span class="city">Iranshahr</span><span class="city">Sarbaz</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">South Khorasan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Birjand</span><span class="city">Qaen</span><span class="city">Ferdows</span><span class="city">Nehbandan</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Tehran</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Tehran</span><span class="city">Rey</span><span class="city">Shahriar</span><span class="city">Eslamshahr</span><span class="city">Varamin</span><span class="city">Malard</span><span class="city">Qods</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">West Azerbaijan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Urmia</span><span class="city">Khoy</span><span class="city">Mahabad</span><span class="city">Miandoab</span><span class="city">Piranshahr</span><span class="city">Bukan</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Yazd</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Yazd</span><span class="city">Ardakan</span><span class="city">Mehriz</span><span class="city">Taft</span><span class="city">Meybod</span></div></td>
+          </tr>
+          <tr data-country="Iran">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Zanjan</td>
+            <td data-label="Cities"><div class="cities"><span class="city">Zanjan</span><span class="city">Abhar</span><span class="city">Khodabandeh</span><span class="city">Tarom</span></div></td>
+          </tr>
+
+          <!-- Intentional duplicate marker row from source: hide via CSS/JS -->
+          <tr data-country="Iran" data-duplicate="true" aria-hidden="true" class="hidden">
+            <td data-label="Country"><span class="country-badge badge-ir">Iran</span></td>
+            <td class="division" data-label="Division">Ilam (duplicate check)</td>
+            <td data-label="Cities"><div class="cities"><span class="city">[Duplicate row can be ignored]</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="empty" class="empty hidden" role="status" aria-live="polite">
+        No results found. Try a different search or change the country filter.
+      </div>
+    </div>
+
+    <div class="footer">
+      Tip: Use the search box to filter by any term (e.g., "Gujarat", "Tehran", or "Bengaluru"). Click a country chip to show only that country. Toggle Compact for denser rows.
+    </div>
+  </main>
+
+<script>
+  // Utilities
+  const $ = (sel, el=document) => el.querySelector(sel);
+  const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+  const search = $('#search');
+  const clearBtn = $('#clear');
+  const tbody = $('#tbody');
+  const chips = $$('.chip');
+  const rowCount = $('#row-count');
+  const activeFilterEl = $('#active-filter');
+  const densityToggle = $('#density');
+  const table = $('#data-table');
+  const emptyState = $('#empty');
+
+  let activeCountry = 'All';
+  let lastQuery = '';
+
+  // Normalize strings: lowercase + remove diacritics
+  function normalize(s) {
+    return s
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '');
+  }
+
+  // Debounce
+  function debounce(fn, delay=160) {
+    let t;
+    return (...args) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...args), delay);
+    };
+  }
+
+  // Highlight matches inside a cell by wrapping with <mark>
+  function highlightCell(cell, query) {
+    if (!query) return;
+    const walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT, null);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+
+    const nq = normalize(query);
+    nodes.forEach(node => {
+      const text = node.nodeValue;
+      const ntext = normalize(text);
+      const idx = ntext.indexOf(nq);
+      if (idx >= 0) {
+        const range = document.createRange();
+        // Map normalized index back to original string indices approximately
+        // Fallback: simple split around the normalized match length
+        const before = text.slice(0, idx);
+        const match = text.slice(idx, idx + query.length);
+        const after = text.slice(idx + query.length);
+
+        const frag = document.createDocumentFragment();
+        if (before) frag.appendChild(document.createTextNode(before));
+        const mark = document.createElement('mark');
+        mark.textContent = match || text.slice(idx, idx + nq.length);
+        frag.appendChild(mark);
+        if (after) frag.appendChild(document.createTextNode(after));
+        node.parentNode.replaceChild(frag, node);
+      }
+    });
+  }
+
+  // Remove previous highlights
+  function clearHighlights(root) {
+    $$('.table mark', root || document).forEach(m => {
+      const text = document.createTextNode(m.textContent);
+      m.replaceWith(text);
+    });
+  }
+
+  function applyFilters() {
+    const q = normalize(search.value.trim());
+    let visible = 0;
+
+    // Clear old highlights only in visible table to reduce DOM churn
+    clearHighlights(tbody);
+
+    $$('#tbody tr').forEach(row => {
+      if (row.dataset.duplicate === 'true') { row.classList.add('hidden'); return; }
+      const country = row.getAttribute('data-country');
+      const text = normalize(row.innerText);
+      const matchCountry = (activeCountry === 'All' || country === activeCountry);
+      const matchText = (!q || text.includes(q));
+      const show = matchCountry && matchText;
+      row.classList.toggle('hidden', !show);
+      if (show) {
+        visible++;
+        if (q) {
+          // Highlight in key cells only
+          const cells = row.cells;
+          if (cells[0]) highlightCell(cells[0], search.value);
+          if (cells[1]) highlightCell(cells[1], search.value);
+          if (cells[2]) highlightCell(cells[2], search.value);
+        }
+      }
+    });
+
+    rowCount.textContent = `(${visible} divisions shown)`;
+    activeFilterEl.textContent = `Filter: ${activeCountry}`;
+    emptyState.classList.toggle('hidden', visible > 0);
+  }
+
+  const applyFiltersDebounced = debounce(applyFilters, 120);
+
+  // Interactions
+  search.addEventListener('input', () => {
+    // Only re-filter if query actually changed
+    const q = search.value;
+    if (q !== lastQuery) {
+      lastQuery = q;
+      applyFiltersDebounced();
+    }
+  });
+
+  clearBtn.addEventListener('click', () => {
+    search.value = '';
+    lastQuery = '';
+    search.focus();
+    applyFilters();
+  });
+
+  // Chip behavior: toggle pressed state and update filter
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed','false'); });
+      chip.classList.add('active');
+      chip.setAttribute('aria-pressed','true');
+      activeCountry = chip.dataset.country;
+      applyFilters();
+    });
+    // Keyboard accessibility is native via button element
+  });
+
+  // Density toggle
+  densityToggle.addEventListener('change', () => {
+    table.classList.toggle('compact', densityToggle.checked);
+  });
+
+  // Initial render
+  applyFilters();
+
+  // Optional: preserve user preference (density) per session
+  try {
+    const key = 'densityPref';
+    const saved = localStorage.getItem(key);
+    if (saved === '1') {
+      densityToggle.checked = true;
+      table.classList.add('compact');
+    }
+    densityToggle.addEventListener('change', () => {
+      localStorage.setItem(key, densityToggle.checked ? '1' : '0');
+    });
+  } catch {}
+
+</script>
+</body>
+</html>

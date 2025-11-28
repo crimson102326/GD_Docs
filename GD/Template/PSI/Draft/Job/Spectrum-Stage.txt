@@ -1,0 +1,19 @@
+Job post
+ 
+Thanks for connecting.
+Apply using the following url, please.
+https://forms.gle/vnv4Bqvth2QvuJdJ8
+
+Thank you for your applying.
+We're checking your application.
+
+I've checked your application, and I think you can contribute for our project as a frontend developer.
+Our next step is taking a short coding test and then having an interview with our project manager.
+Are you ready for a short coding test?
+
+Okay.
+I've sent invitation to your github.
+It is our test project.
+You can check missions in readme file.
+Deadline is 3 hours from when you accept the invitation.
+Thank you.

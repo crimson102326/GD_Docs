@@ -1,0 +1,40 @@
+Diagram: https://fintech-cipherflow.netlify.app/
+
+Whitepaper: https://docs.google.com/document/d/1vi4p4OTQC3s0Xap4emBvLNkRR4brIBlHiot4rion__Q/edit?usp=sharing
+
+Senior Full‑Stack Engineer
+
+Role
+Own end‑to‑end features across the Web/Admin apps, Backend‑for‑Frontend (BFF), and core services. You’ll design APIs and data models, implement wallet/payments flows, integrate blockchain and ML inference, and raise the bar on reliability, security, and developer experience.
+
+What you’ll do
+- Ship product features across React/Next.js (Web/Admin), Node.js BFF, and Go services.
+- Design and evolve contracts: REST/GraphQL at the edge, gRPC/events internally.
+- Implement ledgered payments/withdrawals with correctness (idempotency, double‑entry).
+- Integrate blockchain gateway, fiat rails, and AI risk/personalization services.
+- Drive quality: tests (unit/integration/E2E), observability, SLOs, secure‑by‑default.
+
+What you bring
+- 5+ years building full‑stack products in cloud environments.
+- Strength in TypeScript/React/Next.js and either Go or Node.js (willing to work in Go).
+- API and data modeling depth; Postgres, Redis; Kafka/queues; event‑driven patterns.
+- Solid security fundamentals (OAuth2/OIDC, JWT, RBAC/ABAC, webhooks, OWASP).
+- Comfortable with Kubernetes, CI/CD, IaC; pragmatic, product‑minded, and collaborative.
+
+Nice to have
+- Payments/ledger or crypto experience (EVM, custody/MPC, HSM).
+- ML in production (feature stores, online inference).
+- GraphQL BFF patterns; gRPC/Protobuf; regulated fintech exposure (FCA/MiCA/MASAK).
+
+Our stack
+React/Next.js, Tailwind, Node.js (Fastify/Nest) for BFF, Go for services, REST/GraphQL, gRPC/Protobuf, Postgres, Redis, Kafka, Kubernetes + service mesh, Vault + HSM/MPC, AWS/GCP, GitHub Actions, Argo CD, Terraform/Helm, OpenTelemetry, Prometheus/Grafana, Playwright/k6.
+
+Process
+- Technical test (3–4 hours max)
+- 30-min technical deep-dive via interview
+- Final panel and offer
+
+How to apply
+Include your CV and links (GitHub/portfolio) in your proposal.
+
+FinTech Istanbul is an equal opportunity employer. We value diverse perspectives and support flexible work.

@@ -1,0 +1,111 @@
+“from now on” = starting now and continuing
+“starting now” = beginning immediately
+“now” = present moment
+“right now” = very immediate, urgent
+“at the moment” = current situation, temporary
+
+Role in HR
+
+Talent Acquisition / Recruiter
+- Screens applicants, reviews résumés, and pre-qualifies candidates.
+- Coordinates interviews between you (or your company) and candidates.
+- Maintains communication to keep candidates engaged.
+
+Technical Sourcer
+- Specializes in finding potential candidates with specific technical skills (e.g., through GitHub, LinkedIn, online communities).
+- Often hands over screened prospects to recruiters or hiring managers.
+
+Hiring Coordinator
+- Manages schedules, interview logistics, and candidate records.
+- Ensures smooth communication between all parties.
+
+If you live each day as last, someday you'll most certainly be right!
+Even cautious and experienced users can fall victim when emotion overrides logic.
+
+
+Features and Advantages
+
+QMake is an incredibly useful tool for generating Makefiles or Microsoft Visual Studio project files and provides a wealth of features to the developer. QMake supports variables, custom build logic, and multiple compilers. It also includes support for precompiled headers to speed build times. 
+Perhaps QMake’s most remarkable feature is its extensive cross-platform support. The Qt framework supports Windows, Linux, macOS, Android, iOS, UWP (Universal Windows Platform), and WebAssembly.
+
+
+
+What is the Difference Between CMake and QMake?
+
+QMake is probably the best choice for developers writing applications that use the Qt software framework. The deep integration that QMake includes with the rest of the system is difficult to beat. QMake works well with QtCreator, so it’s an easy solution for Qt projects. 
+CMake is a powerful build system that includes features that go beyond the scope of QMake and Qt. While it has a steeper learning curve, its advanced features, like support for building third-party libraries, allow you to go beyond QMake’s capabilities. You can use CMake to build Qt projects, so either works if you’re a Qt developer.
+If you’re looking for a simple build experience with QtCreator, you can’t go wrong with QMake. For more complex building tasks, CMake may be a better choice.
+
+
+Software life cycle
+1.Discovery
+2.Design
+3.Development
+4.Testing & QA
+5.Release
+6.Maintenance
+
+Software Development Life Cycle
+1.PLANNING
+2.ANALYSIS
+3.DESING
+4.IMPLEMENTATION
+5.TESTING & INTEGRATING
+6.MAINTENANCE
+
+
+Radio-frequency identification uses electromagnetic fields to automatically identify and track tags attached to objects. An RFID system consists of a tiny radio transponder called a tag, a radio receiver, and a transmitter.
+
+Secure Sockets Layer (SSL) is an encryption security protocol
+
+
+
+1. Computer Science (CS)
+Focus: Theoretical foundations of computing, algorithms, data structures, software development, and programming languages.
+Core Subjects:
+Programming (Python, Java, C++)
+Algorithms and Data Structures
+Operating Systems
+Databases
+Artificial Intelligence
+Machine Learning
+Software Engineering
+Career Paths: Software Developer, Data Scientist, AI Engineer, Systems Analyst, Researcher.
+
+	
+
+Course
+Programming languages (e.g. Java, Python, C++)
+Algorithms and data structures
+Computer networks and protocols
+Operating systems and software engineering
+Database systems and data warehousing
+Artificial intelligence and machine learning
+Web development and web technologies
+Human-computer interaction and user experience design
+Computer vision and image processing
+Cybersecurity and network security
+
+
+
+
+Blockchain Engineers
+- Protocol = Core blockchain rules
+- Infrastructure = Tools & nodes
+- dApp/Smart Contract = Apps on top
+- Security = Defense & auditing
+- Research = Innovation & cryptography
+
+
+
+
+
+
+
+
+
+
+=COUNTIF(INDIRECT("A1:Z1000"), INDIRECT(ADDRESS(ROW(), COLUMN()))) > 1
+
+
+https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised

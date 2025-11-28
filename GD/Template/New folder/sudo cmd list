@@ -1,0 +1,81 @@
+**************************************************************************
+*																		 *
+*						Linux Command List								 *
+*																		 *
+**************************************************************************
+
+install chrome 			wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+						sudo dpkg -i google-chrome-stable_current_amd64.deb
+						sudo apt -f install
+
+remove mozila			sudo apt-get purge firefox
+						rm -rf ~/.mozilla
+
+NVM install 			wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+WP install guide 		https://ubuntu.com/tutorials/install-and-configure-wordpress
+
+curl install 			sudo apt install curl
+
+vscode install 			download vscode *.deb file and sudo apt install <filename>
+
+git install 			sudo apt install git
+
+Mongodb install 		ncurl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -echo "deb [ arch=amd64,arm64 ] 			https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+						sudo apt update
+						sudo apt install mongodb-org
+						sudo systemctl start mongod.service
+
+Compass install 		wget https://downloads.mongodb.com/compass/mongodb-compass_1.45.4_amd64.deb
+						sudo apt install ./mongodb-compass_1.45.4_amd64.deb
+
+						sudo dpkg -i mongodb-compass_1.45.4_amd64.deb
+						sudo apt-get install -f # This installs required compass dependencies
+
+						mongodb-compass
+
+
+							
+Disable Auto Lock		gsettings set org.gnome.desktop.screensaver lock-enabled false
+
+Share Folder Guide		sudo apt update
+						sudo apt install open-vm-tools open-vm-tools-desktop
+						sudo reboot
+						sudo mkdir -p /mnt/hgfs
+						lsmod | grep vmhgfs
+						sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other
+						ls /mnt/hgfs/
+
+Make a file executable	chmod +x qt-unified-linux-x64-online.run
+
+Install zlib 			sudo apt-get install zlib1g-dev
+
+
+
+Python virtual env		cd /path/to/your/project
+						sudo apt update
+						sudo apt install python3-venv
+						python3 -m venv .venv
+						source .venv/bin/activate
+						deactivate
+
+AppImage				chmod +x ./xx.appimage
+						./xx.appiamge
+
+						sudo apt install libfuse2
+
+git-filter-repo --commit-callback 
+'
+  if commit.author_name == b"crimson1023":
+  commit.author_name = b"Anastasiia Doroshenko"
+  commit.author_email = b"doroshenko.anastasiia@outlook.com"
+  commit.committer_name = b"Anastasiia Doroshenko"
+  commit.committer_email = b"doroshenko.anastasiia@outlook.com"
+'
+
+
+Download Docs sites		wget --recursive --no-parent --convert-links --page-requisites --html-extension https://reactjs.org/docs/
+If you’re trying to download a site that relies heavily on JavaScript (like React’s docs), a tool like HTTrack or SiteSucker (for macOS) might be more effective for websites that require rendering JavaScript.
+
+
+cat /proc/87027/cmdline | tr "\0" " " > dump.txt
